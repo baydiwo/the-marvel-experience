@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Free3of9Extended';
+    src: url("Free3of9Extended.eot"); 
+	src: url("Free3of9Extended.eot?#iefix") format('embedded-opentype'),
+		 url("Free3of9Extended.otf") format('opentype'),
+		 url("Free3of9Extended.woff") format('woff'),
+		 url("Free3of9Extended.ttf") format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+

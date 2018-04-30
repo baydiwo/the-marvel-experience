@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "The-Marvel-Experience",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "prod": "gulp --production",
+    "dev": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baydiwo/the-marvel-experience.git"
+  },
+  "author": "baydiwo",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.24.1",
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-watch": "^5.0.0"
+  }
+}

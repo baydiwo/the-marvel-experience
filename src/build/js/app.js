@@ -8,11 +8,15 @@ $(document).ready(function(){
 
   $('#nav_button_right').click(function(e) {
     e.preventDefault();
+    $("#ember936 , #ember916").hide();
+
     var error = false;
+    var errorsStep2 = false;
+
     if ($("#Email").hasClass("error") || $("#Password").hasClass("error") || $("#ConfirmPassword").hasClass("error") || $("#BirthDate").hasClass("error")) {
       error = true;
     }
-    console.log(window.CURRENT_PAGE);
+
     if (error == false) {
       if (window.CURRENT_PAGE === 1) {
         window.CURRENT_PAGE = 2;
@@ -26,29 +30,46 @@ $(document).ready(function(){
       }
       else if (window.CURRENT_PAGE === 2) {
 
-        window.CURRENT_PAGE = 3
-        // sendData(2)
+        if ($("#FirstName").val() === ""){
+          $("#FirstName").addClass("error");
+          errorsStep2 = true;
+        } else if ($("#LastName").val() === ""){
+          $("#LastName").addClass("error");
+          errorsStep2 = true;
+        } else if ($("#height").val() === ""){
+          $("#height").addClass("error");
+          errorsStep2 = true;
+        } else if ($("#ember751").val() === ""){
+          $("#ember751").addClass("error");
+          errorsStep2 = true;
+        } else if ($("#ember752").val() === ""){
+          $("#ember752").addClass("error");
+          errorsStep2 = true;
+        } else if (window.selectedEyeColor === ""){
+          $("#ember762").addClass("error");
+          errorsStep2 = true;
+        } else if (window.selectedGender === ""){
+          $("#ember763").addClass("error");
+          errorsStep2 = true;
+        } else if (window.selectedSpecies === ""){
+          $("#ember764").addClass("error");
+          errorsStep2 = true;
+        } else if ($("#IssueLocation").val() === ""){
+          $("#IssueLocation").addClass("error");
+          errorsStep2 = true;
+        } else {
+         errorsStep2 = false;
+        }
 
-        $("#ember745").css("display", "none");
-        $("#ember849").css("display", "block");
-        $("#nav_button_left").addClass("active");
-        $("#level").text("0");
-        $("#xp").text("100");
-        $("#menubar3").addClass("active");
+        if (errorsStep2 === false) {
+          sendData(2)
+        }
 
       }
       else if (window.CURRENT_PAGE === 3) {
 
         if(window.selectedHero !== "") {
           sendData(3)
-
-          $("#ember849").css("display", "none");
-          $("#ember894").css("display", "block");
-          $('#bigHero').css('background-image', 'url(/static/images/heroes/characters/' + window.selectedHero + '.png)');
-          $("#nav_button_right").removeClass("active");
-          $("#level").text("1");
-          $("#xp").text("100");
-          $("#menubar4").addClass("active");
         } else {
           alert("please choose your hero!");
         }
@@ -57,8 +78,9 @@ $(document).ready(function(){
   });
 
   $('#nav_button_left').click(function(e) {
-    console.log(e);
     e.preventDefault();
+    $("#ember936 , #ember916").hide();
+
     if (window.CURRENT_PAGE === 1) {
       $("#ember582").css("display", "block");
       $("#ember745").css("display", "none");
@@ -72,6 +94,17 @@ $(document).ready(function(){
       window.CURRENT_PAGE = 2;
     }
   });
+
+  $("#toc").click(function(e) {
+    e.preventDefault();
+    $("#ember936").show();
+    $("#ember745 , #ember849, #ember894, #ember916 , #ember582").hide();
+  });
+  $("#policy").click(function(e) {
+    e.preventDefault();
+    $("#ember916").show();
+    $("#ember745 , #ember849, #ember894, #ember936 , #ember582").hide();
+  })
 
   function isValidEmailAddress(emailAddress) {
     var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
@@ -110,13 +143,15 @@ $(document).ready(function(){
     }
   });
 
-  $("#height").change(function() {
-    if ($("#height").val() == "") {
-      $("#height").addClass("error");
-    } else {
-      $("#height").removeClass("error");
-    }
-  });
+  // $("#height").change(function() {
+  //   if ($("#height").val() == "") {
+  //     $("#height").addClass("error");
+  //   } else {
+  //     $("#height").removeClass("error");
+  //   }
+  // });
+
+
 
   // show eye option
   $("#ember762").on('click', function(e) {
@@ -195,7 +230,7 @@ $(document).ready(function(){
       $(".select_hero a").removeClass("selected");
     }
     else {
-      // $(this).addClass("selected");
+      $(this).addClass("selected");
     }
 
     var id = $(this).data('ember-action');
@@ -222,12 +257,28 @@ $(document).ready(function(){
        IssueLocation: jQuery("#IssueLocation").val(),
        Zipcode: jQuery("#Zipcode").val(),
        FavoriteHero: window.selectedHero,
+       photoKey: window.photoKey,
       }),
       contentType:"application/json; charset=utf-8",
       dataType:"json",
       success: function(){
-       if (window.CURRENT_PAGE === 2) {
+       if (step === 2) {
         window.CURRENT_PAGE = 3;
+        $("#ember745").css("display", "none");
+        $("#ember849").css("display", "block");
+        $("#nav_button_left").addClass("active");
+        $("#level").text("0");
+        $("#xp").text("100");
+        $("#menubar3").addClass("active");
+       }
+       if (step === 3) {
+        $("#ember849").css("display", "none");
+        $("#ember894").css("display", "block");
+        $('#bigHero').css('background-image', 'url(/static/images/heroes/characters/' + window.selectedHero + '.png)');
+        $("#nav_button_right").removeClass("active");
+        $("#level").text("1");
+        $("#xp").text("100");
+        $("#menubar4").addClass("active");
        }
       },
       error: function (request, error) {

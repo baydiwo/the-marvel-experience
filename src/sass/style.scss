@@ -1276,6 +1276,8 @@ div.popup div.content:only-child {
 
 .shield_id form select.city {
     width: 135px;
+    font-size:16px;
+    font-family:$font-bebas ;
 }
 
 .shield_id form input.zip_code {
@@ -1855,13 +1857,13 @@ div.popup div.content:only-child {
     }
 }
 
-#ember745 , #ember849, #ember894, #ember916{
+#ember745 , #ember849, #ember894, #ember916, #ember936{
     display:none;
     transition: all ease .4s;
 }
 
 .font-euro {
-    font-family:$font-euro;
+    font-family:$font-euro !important;
 }
 
 #userPicture {

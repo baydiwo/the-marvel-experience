@@ -1,59 +1,48 @@
+$(document).ready(function(){
+   setTimeout(function(){
+
+    $("#signup_popup").css("top", "50%");
+
+   },1000);
+});
+
 $('#nav_button_right').click(function(e) {
   e.preventDefault();
   var error = false;
   if ($("#Email").hasClass("error") || $("#Password").hasClass("error") || $("#ConfirmPassword").hasClass("error") || $("#BirthDate").hasClass("error")) {
     error = true;
   }
-  if (error == true) {
+
+  if (error == false) {
     if (window.CURRENT_PAGE === 1) {
       window.CURRENT_PAGE = 2;
+
       $("#ember582").css("display", "none");
       $("#ember745").css("display", "block");
       $("#nav_button_left").addClass("active");
-      $("#level").text("2");
+      $("#level").text("0");
       $("#xp").text("100");
       $("#menubar2").addClass("active");
     }
     else if (window.CURRENT_PAGE === 2) {
-
-      sendData()
-
-      // var dataUser = {BirthDate : "2017/02/02",
-      //   Height: 17,
-      //   EyeColor: "black",
-      //   Gender : "Male",
-      //   Species: "Android",
-      //   IssueLocation : "Indonesia",
-      //   Zipcode : 18888};
-
-      //   console.log(dataUser);
-      // $.ajax({
-      //   type: "POST",
-      //   url: "https://users.smartag.us/api/UserAdmin",
-      //   // The key needs to match your method's input parameter (case-sensitive).
-      //   data: {
-      //     BirthDate : "2017/02/02",
-      //     Height: 17,
-      //     EyeColor: "black",
-      //     Gender : "Male",
-      //     Species: "Android",
-      //     IssueLocation : "Indonesia",
-      //     Zipcode : 18888
-      //   },
-      //   // contentType: "application/json; charset=utf-8",
-      //   // dataType: "json",
-      //     success: function(data){alert(data);},
-      //     failure: function(errMsg) {
-      //       alert(errMsg);
-      //     }
-      //   });
-
-
       window.CURRENT_PAGE = 3;
+      // sendData()
+
       $("#ember745").css("display", "none");
       $("#ember849").css("display", "block");
       $("#nav_button_left").addClass("active");
-      $("#level").text("3");
+      $("#level").text("0");
+      $("#xp").text("100");
+      $("#menubar2").addClass("active");
+    }
+    else if (window.CURRENT_PAGE === 3) {
+
+      // sendData()
+
+      $("#ember849").css("display", "none");
+      $("#ember894").css("display", "block");
+      $("#nav_button_right").removeClass("active");
+      $("#level").text("1");
       $("#xp").text("100");
       $("#menubar2").addClass("active");
     }
@@ -97,6 +86,14 @@ $("#BirthDate").change(function() {
   }
 });
 
+$("#height").change(function() {
+  if ($("#height").val() == "") {
+    $("#height").addClass("error");
+  } else {
+    $("#height").removeClass("error");
+  }
+});
+
 // show eye option
 $("#ember762").on('click', function(e) {
   e.preventDefault();
@@ -131,6 +128,14 @@ $("#ember764").on('click', function(e) {
   }
 });
 
+$("#Password").change(function() {
+  if ($("#Password").val().length < 5) {
+    $("#Password").addClass("error");
+  } else {
+    $("#Password").removeClass("error");
+  }
+});
+
 // function to get data from selected eye
 function getSelectedItem(emberId, type) {
   $("#"+emberId+" .graphic_select_items .item").on('click',function(e) {
@@ -143,53 +148,91 @@ function getSelectedItem(emberId, type) {
 function setSelected(id , type) {
   if (type === "eye") {
     var theId = _.find(window.AVAILABLE_EYE_COLORS, ['id', id]);
+    window.selectedEyeColor = theId.label;
     $("#selectedEyeColor").attr("src", "/static/images/eye_colors/" + theId.id + ".jpg");
   }
   if (type === "gender") {
     var theId = _.find(window.AVAILABLE_GENDERS, ['id', id]);
+    window.selectedGender = theId.label;
     $("#selectedGender").attr("src", "/static/images/gender/" + theId.id + ".jpg");
   }
   if (type === "species") {
     var theId = _.find(window.AVAILABLE_GENDERS, ['id', id]);
+    window.selectedSpecies = theId.label;
     $("#selectedSpecies").attr("src", "/static/images/species/" + theId.id + ".jpg");
   }
-
 }
 
-function sendData()
-{
+
+$(".select_hero a").on('click',function(e) {
+  e.preventDefault();
+  var find = $(".select_hero").find(".selected");
+  if(find.length > 0) {
+    $(".select_hero a").removeClass("selected");
+  }
+  else {
+    $(this).addClass("selected");
+  }
+
+  var id = $(this).data('ember-action');
+  console.log(id);
+});
+
+
+function sendData() {
 var url = "https://users.smartag.us/api/UserPortal";
 jQuery.ajax({
     url: url,
     type:"POST",
     data: JSON.stringify({
-     // Email: jQuery("#Email").val(),
-     // Password: jQuery("#Password").val(),
-     // FirstName: jQuery("#FirstName").val(),
-     // LastName: jQuery("#LastName").val(),
-     // BirthDate: jQuery("#BirthDate").val(),
-     // Height: jQuery("#Height").val(),
-     // EyeColor: jQuery("#EyeColor").val(),
-     // Gender: jQuery("#Gender").val(),
-     // Species: jQuery("#Species").val(),
-     // IssueLocation: jQuery("#IssueLocation").val(),
-     // Zipcode: jQuery("#Zipcode").val()
-
-     Email : "test@test.com",
-      Password : "123123123",
-      FirstName : "my first",
-      LastName : "my last",
-      BirthDate : "2017/02/02",
-      Height: 17,
-      EyeColor: "black",
-      Gender : "Male",
-      Species: "Android",
-      IssueLocation : "Indonesia",
-      Zipcode : 18888,
+     Email: jQuery("#Email").val(),
+     Password: jQuery("#Password").val(),
+     FirstName: jQuery("#FirstName").val(),
+     LastName: jQuery("#LastName").val(),
+     BirthDate: jQuery("#ember751").val()+"/"+jQuery("#ember752").val()+"/"+jQuery("#ember753").val(),
+     Height: jQuery("#Height").val(),
+     EyeColor: window.selectedEyeColor,
+     Gender: window.selectedGender,
+     Species: window.selectedSpecies,
+     IssueLocation: jQuery("#IssueLocation").val(),
+     Zipcode: jQuery("#Zipcode").val(),
     }),
     contentType:"application/json; charset=utf-8",
     dataType:"json",
     success: function(){
+     if (window.CURRENT_PAGE === 2) {
+      window.CURRENT_PAGE = 3;
+     }
+    },
+    error: function (request, error) {
+      console.log(arguments);
+      alert(" Can't do because: " + error);
+    },
+  });
+}
+
+function uploadImage(files) {
+var formData = new FormData();
+var url = "https://tickets.smartag.us/api/TicketPhoto";
+// var uploadedFile = {
+//   file: files
+// }
+formData.append("file", files);
+
+console.log(formData);
+jQuery.ajax({
+    url: url,
+    type:"POST",
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    // headers: {
+    //     "Content-Type":"multipart/form-data"
+    // },
+    // dataType:"json",
+    success: function(){
+      alert("success");
      jQuery("#success").css("display", "inline");
     },
     error: function (request, error) {
@@ -199,24 +242,32 @@ jQuery.ajax({
   });
 }
 
-// ajax upload
-$(document).ready(function(){
+function encodeImageFileAsURL(element) {
+  var file = element.files[0];
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    console.log('RESULT', reader.result)
+    uploadImage(reader.result);
+  }
+  reader.readAsDataURL(file);
+}
 
-  var thumb = $('img#thumb');
-
-  new AjaxUpload('imageUpload', {
-    action: $('form#newHotnessForm').attr('action'),
-    name: 'image',
-    onSubmit: function(file, extension) {
-      $('div.preview').addClass('loading');
+$('#upload').on('click', function() {
+    var file_data = $('#sortpicture').prop('files')[0];
+    var form_data = new FormData();
+    form_data.append('file', file_data);
+    console.log(form_data);
+    $.ajax({
+        url: 'https://tickets.smartag.us/api/TicketPhoto', // point to server-side PHP script
+        dataType: 'text',  // what to expect back from the PHP script, if anything
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        type: 'post',
+        success: function(){
+      alert("success");
+     jQuery("#success").css("display", "inline");
     },
-    onComplete: function(file, response) {
-      thumb.load(function(){
-        $('div.preview').removeClass('loading');
-        thumb.unbind();
-      });
-      thumb.attr('src', response);
-    }
-  });
-
+     });
 });

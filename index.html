@@ -132,6 +132,7 @@ window.PLAYER_STATUSES = {
   "1": "TRAINEE"
 };
 window.INITIAL_USER_DATA = JSON.parse('{}');
+window.ALL_USER_DATA = JSON.parse('[]');
 
 window.FLAG_NEEDS_PROFILE = 1 << 1;
 window.FLAG_COPPA_REQUIRED = 1 << 2;
@@ -144,6 +145,11 @@ window.AVATAR_NONE = 0;
 window.AVATAR_LOCAL = 1;
 window.AVATAR_FACEBOOK = 2;
 window.CURRENT_PAGE = 1;
+
+// temporary data for custom select
+window.selectedEyeColor = "";
+window.selectedGender = "";
+window.selectedSpecies = "";
 </script>
 </head>
 
@@ -248,12 +254,12 @@ window.CURRENT_PAGE = 1;
 
                 <div class="body">
 
-                  <label for="email">USERNAME</label><input id="Email" class="ember-view ember-text-field error" placeholder="Email" tabindex="1" type="email" name="Email" autocomplete="off" required="">
-                  <label for="Password">PASSWORD</label><input id="Password" class="ember-view ember-text-field error" placeholder="Password" tabindex="2" type="password" name="Password
+                  <label for="email">USERNAME</label><input id="Email" class="ember-view ember-text-field" placeholder="Email" tabindex="1" type="email" name="Email" autocomplete="off" required="">
+                  <label for="Password">PASSWORD</label><input id="Password" class="ember-view ember-text-field" placeholder="Password" tabindex="2" type="password" name="Password
                   " autocomplete="off" required="">
-                  <label for="ConfirmPassword">CONFIRM PASSWORD</label><input id="ConfirmPassword" class="ember-view ember-text-field error" placeholder="Confirm Password" tabindex="3" type="password
+                  <label for="ConfirmPassword">CONFIRM PASSWORD</label><input id="ConfirmPassword" class="ember-view ember-text-field" placeholder="Confirm Password" tabindex="3" type="password
                   " name="ConfirmPassword" autocomplete="off" required="">
-                  <label for="BirthDate">BIRTHDATE</label><input id="BirthDate" class="ember-view ember-text-field birthDate error" placeholder="DD/MM/YYYY" tabindex="5" type="datetime" name="BirthDate
+                  <label for="BirthDate">BIRTHDATE</label><input id="BirthDate" class="ember-view ember-text-field birthDate" placeholder="DD/MM/YYYY" tabindex="5" type="datetime" name="BirthDate
                   " autocomplete="off" required="">
 
                 </div>
@@ -279,6 +285,10 @@ window.CURRENT_PAGE = 1;
         </div>
       </form>
 
+<!-- <form id="myAwesomeForm" method="post" action="https://tickets.smartag.us/api/TicketPhoto">
+    <input type="file" id="sortpicture" name="file" />
+    <input type="submit" id="upload" name="upload" />
+</form> -->
       <!-- section 2 -->
       <div id="ember745" class="ember-view" style="opacity: 1;">    <div class="popup_content" style="width: 700px;">
         <div class="form" style="padding-bottom: 0px;">
@@ -309,23 +319,15 @@ window.CURRENT_PAGE = 1;
           <div id="player_avatar">
           </div>
 
-<div class="panel">
-<img id="thumb" width="100px" height="100px" src="/playground/images/icons/128px/zurb.png">
-<form id="newHotnessForm" action="https://tickets.smartag.us/api/TicketPhoto" method="POST">
-<label>Upload a picture of yourself</label>
-<input type="file" size="20" id="imageUpload" class="  ">
-<a class="button">Save</a>
-</form>
-</div>
           <div class="qr_image">
             <img src="dist/images/shield_id/qrcode.png">
           </div>
 
           <form data-ember-action="748" name="form">
 
-            <input id="ember749" class="ember-view ember-text-field wide big error" placeholder="First name" tabindex="1" type="text" name="first_name" autocomplete="off" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAfBJREFUWAntVk1OwkAUZkoDKza4Utm61iP0AqyIDXahN2BjwiHYGU+gizap4QDuegWN7lyCbMSlCQjU7yO0TOlAi6GwgJc0fT/fzPfmzet0crmD7HsFBAvQbrcrw+Gw5fu+AfOYvgylJ4TwCoVCs1ardYTruqfj8fgV5OUMSVVT93VdP9dAzpVvm5wJHZFbg2LQ2pEYOlZ/oiDvwNcsFoseY4PBwMCrhaeCJyKWZU37KOJcYdi27QdhcuuBIb073BvTNL8ln4NeeR6NRi/wxZKQcGurQs5oNhqLshzVTMBewW/LMU3TTNlO0ieTiStjYhUIyi6DAp0xbEdgTt+LE0aCKQw24U4llsCs4ZRJrYopB6RwqnpA1YQ5NGFZ1YQ41Z5S8IQQdP5laEBRJcD4Vj5DEsW2gE6s6g3d/YP/g+BDnT7GNi2qCjTwGd6riBzHaaCEd3Js01vwCPIbmWBRx1nwAN/1ov+/drgFWIlfKpVukyYihtgkXNp4mABK+1GtVr+SBhJDbBIubVw+Cd/TDgKO2DPiN3YUo6y/nDCNEIsqTKH1en2tcwA9FKEItyDi3aIh8Gl1sRrVnSDzNFDJT1bAy5xpOYGn5fP5JuL95ZjMIn1ya7j5dPGfv0A5eAnpZUY3n5jXcoec5J67D9q+VuAPM47D3XaSeL4AAAAASUVORK5CYII=&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+            <input id="FirstName" class="ember-view ember-text-field wide big" placeholder="First name" tabindex="1" type="text" name="first_name" autocomplete="off" required="">
             <br>
-            <input id="ember750" class="ember-view ember-text-field wide big error" placeholder="Last name" tabindex="2" type="text" name="last_name" autocomplete="off" required="">
+            <input id="LastName" class="ember-view ember-text-field wide big" placeholder="Last name" tabindex="2" type="text" name="last_name" autocomplete="off" required="">
 
             <div class="table">
               <div class="row"><label>BIRTHDATE</label></div>
@@ -341,10 +343,10 @@ window.CURRENT_PAGE = 1;
               <div class="row"><label>HEIGHT</label><label>EYE COLOR</label><label>GENDER</label><label>SPECIES</label></div>
               <div class="row">
                 <div class="cell">
-                  <input id="ember754" class="ember-view ember-text-field error" placeholder="CM" tabindex="6" type="text" name="height_cm" autocomplete="off" required="">
+                  <input id="Height" class="ember-view ember-text-field" placeholder="CM" tabindex="6" type="text" name="height_cm" autocomplete="off" required="">
                 </div>
                 <div class="cell">
-                  <div id="ember762" class="ember-view error" tabindex="8">    <div class="graphic_select">
+                  <div id="ember762" class="ember-view" tabindex="8">    <div class="graphic_select">
                     <a href="#" class="selected" data-ember-action="767">
                       <div class="icon"><img id="selectedEyeColor" src="/static/images/eye_colors/0.jpg"></div>
                     </a>
@@ -400,7 +402,7 @@ window.CURRENT_PAGE = 1;
                 </div>
               </div>
               <div class="cell">
-                <div id="ember763" class="ember-view error" tabindex="9">    <div class="graphic_select">
+                <div id="ember763" class="ember-view" tabindex="9">    <div class="graphic_select">
                   <a href="#" class="selected" data-ember-action="801">
                     <div class="icon"><img id="selectedGender" src="/static/images/gender/0.jpg"></div>
                   </a>
@@ -424,7 +426,7 @@ window.CURRENT_PAGE = 1;
               </div>
             </div>
             <div class="cell">
-              <div id="ember764" class="ember-view error" tabindex="10">    <div class="graphic_select">
+              <div id="ember764" class="ember-view" tabindex="10">    <div class="graphic_select">
                 <a href="#" class="selected" data-ember-action="814">
                   <div class="icon"><img id="selectedSpecies" src="/static/images/species/0.jpg"></div>
                 </a>
@@ -466,10 +468,10 @@ window.CURRENT_PAGE = 1;
         <div class="row"><label>ISSUE/LOCATION</label><label>ZIP CODE</label></div>
         <div class="row">
           <div class="cell">
-            <input id="ember765" class="ember-view ember-text-field wide city error" placeholder="ISSUE LOCATION (CITY)" tabindex="11" type="text" name="city" autocomplete="off" required="">
+            <input id="IssueLocation" class="ember-view ember-text-field wide city" placeholder="ISSUE LOCATION (CITY)" tabindex="11" type="text" name="city" autocomplete="off" required="">
           </div>
           <div class="cell">
-            <input id="ember766" class="ember-view ember-text-field zip_code error" placeholder="ZIP CODE" tabindex="12" type="text" name="zip_code" autocomplete="off" required="">
+            <input id="Zipcode" class="ember-view ember-text-field zip_code" placeholder="ZIP CODE" tabindex="12" type="text" name="zip_code" autocomplete="off" required="">
           </div>
         </div>
       </div>
@@ -551,7 +553,7 @@ window.CURRENT_PAGE = 1;
       </div>
 
       <div id="hero_6" class="select_hero">
-        <a href="#" data-ember-action="866" alt="Captain America" title="Captain America">
+        <a href="#" data-ember-action="Captain America" alt="Captain America" title="Captain America">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/captain_america.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Captain America</div>
@@ -561,7 +563,7 @@ window.CURRENT_PAGE = 1;
       </div>
 
       <div id="hero_7" class="select_hero">
-        <a href="#" data-ember-action="868" alt="Black Widow" title="Black Widow">
+        <a href="#" data-ember-action="Black Widow" alt="Black Widow" title="Black Widow">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/black_widow.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Black Widow</div>
@@ -571,7 +573,7 @@ window.CURRENT_PAGE = 1;
       </div>
 
       <div id="hero_8" class="select_hero">
-        <a href="#" data-ember-action="870" alt="Nick Fury" title="Nick Fury">
+        <a href="#" data-ember-action="Nick Fury" alt="Nick Fury" title="Nick Fury">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/nick_fury.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Nick Fury</div>
@@ -581,7 +583,7 @@ window.CURRENT_PAGE = 1;
       </div>
 
       <div id="hero_9" class="select_hero">
-        <a href="#" data-ember-action="872" alt="Black Panther" title="Black Panther">
+        <a href="#" data-ember-action="Black Panther" alt="Black Panther" title="Black Panther">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/black_panther.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Black Panther</div>
@@ -591,7 +593,7 @@ window.CURRENT_PAGE = 1;
       </div>
 
       <div id="hero_10" class="select_hero">
-        <a href="#" data-ember-action="874" alt="She-Hulk" title="She-Hulk">
+        <a href="#" data-ember-action="She Hulk" alt="She-Hulk" title="She-Hulk">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/she_hulk.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">She-Hulk</div>
@@ -601,7 +603,7 @@ window.CURRENT_PAGE = 1;
       </div>
 
       <div id="hero_11" class="select_hero">
-        <a href="#" data-ember-action="876" alt="Vision" title="Vision">
+        <a href="#" data-ember-action="Vision" alt="Vision" title="Vision">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/vision.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Vision</div>
@@ -611,7 +613,7 @@ window.CURRENT_PAGE = 1;
       </div>
 
       <div id="hero_12" class="select_hero">
-        <a href="#" data-ember-action="878" alt="Iron Fist" title="Iron Fist">
+        <a href="#" data-ember-action="Iron Fist" alt="Iron Fist" title="Iron Fist">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/iron_fist.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Iron Fist</div>
@@ -642,6 +644,57 @@ window.CURRENT_PAGE = 1;
 
 </div>
 <!-- end of section 3 -->
+<!-- section 4 -->
+<div id="ember894" class="ember-view" style="opacity: 1;"><div class="popup_content" style="margin-top: 70px;">
+  <div style="width: 800px; position: relative;">
+    <div style="width: 300px; position: absolute; height: 430px; left: 0px; top: 0px; z-index: 2;">
+      <div class="form" style="width: 300px;">
+        <div class="form_label center">
+          <div class="title red">WAY TO GO</div><div class="title white">RECRUIT!</div>
+        </div>
+
+        <div class="header">
+        </div>
+
+        <div class="body" style="padding-top: 20px; font-size: 21px;">
+          <p style="padding: 0px 15px 0px 15px; margin: 0px;">
+            You'll be called upon shortly<br>to begin your training!
+          </p>
+          <p style="color: #9DD5FA; padding: 0px 15px 0px 15px; margin: 10px 0px 0px 0px;">
+            Training orientation is <br>Coming Soon
+          </p>
+        </div>
+
+        <div class="footer">
+        </div>
+      </div>
+
+    </div>
+
+    <div style="width: 150px; height: 430px; left: 320px; z-index: 1; position: absolute;"><div style="display: block; z-index: 0; background: url(/static/images/heroes/characters/iron_fist.png); background-position: center center; background-repeat: no-repeat; background-size: auto 400px; position: absolute; top: 0px; bottom: 0px; left: -300px; right: -300px; margin: auto;"></div></div>
+
+
+    <div class="form" style="width: 290px; right: 20px; height: 430px; z-index: 2; position: absolute;">
+      <div class="form_label right">
+        <div class="title red">YOUR NEW</div><div class="title white">ID BADGE IS READY</div>
+      </div>
+
+      <div id="shield_id_preview"><img width="100%" height="100%" src="https://recruits.themarvelexperiencetour.com/shield_id/5960-989917.png?size=small&amp;r=0.8528495890024688"></div>
+
+      <div style="margin-top: 10px; width: 290px; text-align: center;">
+        <a href="#" class="nav_button left active" data-ember-action="895">PRINT</a>
+        <a href="https://recruits.themarvelexperiencetour.com/shield_id/5960-989917.png?size=big&amp;r=0.7483599463665818" id="download_id_badge" class="nav_button right active" download="shield_id_badge.png">DOWNLOAD</a>
+      </div>
+      <p style="font-size: 15px; color: #e8e6e7; padding-top: 10px;" class="font-euro">
+        In the meantime, download your SHIELD recruit ID badge and carry it proudly!
+      </p>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+</div>
+<!-- end of section 4-->
     </div>
   </div>
 
@@ -700,7 +753,7 @@ window.CURRENT_PAGE = 1;
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 <script src="dist/build/js/ajaxupload.js"></script>
 <script src="dist/build/js/app.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
 
 <!-- <div id="testdiv" style="height: 1in; left: -100%; position: absolute; top: -100%; width: 1in;"></div> -->
 <!-- <script type="text/javascript">

@@ -1,6 +1,11 @@
 @import url("../fonts/bebasneue/stylesheet.css");
 @import url("../fonts/code39azalea/stylesheet.css");
 @import url("../fonts/fre3of9x/stylesheet.css");
+
+$font-euro : "Eurostile", "Verdana", Arial;
+$font-bebas : "BebasNeueRegular", "Verdana", "Arial";
+$font-fre : "Free3of9Extended";
+
 body {
     font-size: 13px;
     font-family: "BebasNeueRegular", "Verdana", "Arial";
@@ -1141,7 +1146,7 @@ div.popup div.content:only-child {
 }
 
 .image_message p {
-    font-family: "BebasNeueRegular", "Verdana", "Arial";
+    font-family: $font-euro;
     font-size: 17px;
     color: #cccccc;
     text-align: justify;
@@ -1196,6 +1201,7 @@ div.popup div.content:only-child {
     border: 2px solid #8b8b8b;
     font-size: 18px;
     height: 16px;
+    box-sizing: content-box;
 }
 
 .shield_id.screenshot input {
@@ -1379,7 +1385,7 @@ div.popup div.content:only-child {
     position: absolute;
     top: 0px;
     left: 0px;
-    background-image: url("/static/images/main_frame/hero_icon_background.png");
+    background-image: url("../images/main_frame/hero_icon_background.png");
     background-size: auto auto !important;
 }
 
@@ -1819,4 +1825,22 @@ div.popup div.content:only-child {
     display: block;
     z-index: 1000000;
     background: none;
+}
+
+
+// baydiwo
+
+#signup_popup {
+    left:50%;
+    margin-left:-400px;
+    top:50%;
+    margin-top:calc(-479px / 2);
+
+    #ember582 label {
+    min-width:121px
+    }
+}
+
+#ember745 , #ember849{
+    display: none;
 }

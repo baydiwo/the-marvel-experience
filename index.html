@@ -1,418 +1,715 @@
 <html>
 
 <head>
-    <title>The Marvel Experience</title>
+  <title>The Marvel Experience</title>
 
-    <link rel="stylesheet" href="dist/css/style.css" type="text/css">
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Jura:400,600,500" rel="stylesheet" type="text/css">
-    <script type="text/javascript">
-        // SYSTEM CONSTANTS
-        window.SYSTEM_NAME_NICE = "The Marvel Experience";
-        window.SYSTEM_NAME = "the_marvel_experience";
-        window.SYSTEM_URL = "https://recruits.themarvelexperiencetour.com";
-        window.MEDIA_URL = "https://recruits.themarvelexperiencetour.com";
-        window.JS_BUILD = "1.025";
-        window.FB_APP_ID = "646104345443777";
-        window.AVAILABLE_HEROES = [{
-            "fullName": "Spider-Man",
-            "id": 1,
-            "internalName": "spiderman"
-        }, {
-            "fullName": "Ironman",
-            "id": 2,
-            "internalName": "ironman"
-        }, {
-            "fullName": "Thor",
-            "id": 3,
-            "internalName": "thor"
-        }, {
-            "fullName": "Hulk",
-            "id": 4,
-            "internalName": "hulk"
-        }, {
-            "fullName": "Wolverine",
-            "id": 5,
-            "internalName": "wolverine"
-        }, {
-            "fullName": "Captain America",
-            "id": 6,
-            "internalName": "captain_america"
-        }, {
-            "fullName": "Black Widow",
-            "id": 7,
-            "internalName": "black_widow"
-        }, {
-            "fullName": "Nick Fury",
-            "id": 8,
-            "internalName": "nick_fury"
-        }, {
-            "fullName": "Black Panther",
-            "id": 9,
-            "internalName": "black_panther"
-        }, {
-            "fullName": "She-Hulk",
-            "id": 10,
-            "internalName": "she_hulk"
-        }, {
-            "fullName": "Vision",
-            "id": 11,
-            "internalName": "vision"
-        }, {
-            "fullName": "Iron Fist",
-            "id": 12,
-            "internalName": "iron_fist"
-        }];
-        window.AVAILABLE_EYE_COLORS = [{
-            "id": 1,
-            "label": "Black"
-        }, {
-            "id": 2,
-            "label": "Blue"
-        }, {
-            "id": 3,
-            "label": "Brown"
-        }, {
-            "id": 4,
-            "label": "Grey"
-        }, {
-            "id": 5,
-            "label": "Green"
-        }, {
-            "id": 6,
-            "label": "Hazel"
-        }, {
-            "id": 7,
-            "label": "Red"
-        }, {
-            "id": 8,
-            "label": "Pink"
-        }, {
-            "id": 9,
-            "label": "Yellow"
-        }, {
-            "id": 10,
-            "label": "Orange"
-        }, {
-            "id": 11,
-            "label": "Purple"
-        }];
-        window.AVAILABLE_SPECIES = [{
-            "id": 1,
-            "label": "Human"
-        }, {
-            "id": 2,
-            "label": "Android"
-        }, {
-            "id": 3,
-            "label": "Superhuman"
-        }, {
-            "id": 4,
-            "label": "Animal"
-        }, {
-            "id": 5,
-            "label": "Alien"
-        }, {
-            "id": 6,
-            "label": "Unknown"
-        }];
-        window.AVAILABLE_GENDERS = [{
-            "id": 1,
-            "label": "Male"
-        }, {
-            "id": 2,
-            "label": "Female"
-        }, {
-            "id": 3,
-            "label": "Other"
-        }];
-        window.PLAYER_STATUSES = {
-            "0": "RECRUIT",
-            "1": "TRAINEE"
-        };
-        window.INITIAL_USER_DATA = JSON.parse('{}');
+  <link rel="stylesheet" href="dist/css/style.css" type="text/css">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Jura:400,600,500" rel="stylesheet" type="text/css">
+  <script type="text/javascript">
+// SYSTEM CONSTANTS
+window.SYSTEM_NAME_NICE = "The Marvel Experience";
+window.SYSTEM_NAME = "the_marvel_experience";
+window.SYSTEM_URL = "https://recruits.themarvelexperiencetour.com";
+window.MEDIA_URL = "https://recruits.themarvelexperiencetour.com";
+window.JS_BUILD = "1.025";
+window.FB_APP_ID = "646104345443777";
+window.AVAILABLE_HEROES = [{
+  "fullName": "Spider-Man",
+  "id": 1,
+  "internalName": "spiderman"
+}, {
+  "fullName": "Ironman",
+  "id": 2,
+  "internalName": "ironman"
+}, {
+  "fullName": "Thor",
+  "id": 3,
+  "internalName": "thor"
+}, {
+  "fullName": "Hulk",
+  "id": 4,
+  "internalName": "hulk"
+}, {
+  "fullName": "Wolverine",
+  "id": 5,
+  "internalName": "wolverine"
+}, {
+  "fullName": "Captain America",
+  "id": 6,
+  "internalName": "captain_america"
+}, {
+  "fullName": "Black Widow",
+  "id": 7,
+  "internalName": "black_widow"
+}, {
+  "fullName": "Nick Fury",
+  "id": 8,
+  "internalName": "nick_fury"
+}, {
+  "fullName": "Black Panther",
+  "id": 9,
+  "internalName": "black_panther"
+}, {
+  "fullName": "She-Hulk",
+  "id": 10,
+  "internalName": "she_hulk"
+}, {
+  "fullName": "Vision",
+  "id": 11,
+  "internalName": "vision"
+}, {
+  "fullName": "Iron Fist",
+  "id": 12,
+  "internalName": "iron_fist"
+}];
+window.AVAILABLE_EYE_COLORS = [{
+  "id": 1,
+  "label": "Black"
+}, {
+  "id": 2,
+  "label": "Blue"
+}, {
+  "id": 3,
+  "label": "Brown"
+}, {
+  "id": 4,
+  "label": "Grey"
+}, {
+  "id": 5,
+  "label": "Green"
+}, {
+  "id": 6,
+  "label": "Hazel"
+}, {
+  "id": 7,
+  "label": "Red"
+}, {
+  "id": 8,
+  "label": "Pink"
+}, {
+  "id": 9,
+  "label": "Yellow"
+}, {
+  "id": 10,
+  "label": "Orange"
+}, {
+  "id": 11,
+  "label": "Purple"
+}];
+window.AVAILABLE_SPECIES = [{
+  "id": 1,
+  "label": "Human"
+}, {
+  "id": 2,
+  "label": "Android"
+}, {
+  "id": 3,
+  "label": "Superhuman"
+}, {
+  "id": 4,
+  "label": "Animal"
+}, {
+  "id": 5,
+  "label": "Alien"
+}, {
+  "id": 6,
+  "label": "Unknown"
+}];
+window.AVAILABLE_GENDERS = [{
+  "id": 1,
+  "label": "Male"
+}, {
+  "id": 2,
+  "label": "Female"
+}, {
+  "id": 3,
+  "label": "Other"
+}];
+window.PLAYER_STATUSES = {
+  "0": "RECRUIT",
+  "1": "TRAINEE"
+};
+window.INITIAL_USER_DATA = JSON.parse('{}');
 
-        window.FLAG_NEEDS_PROFILE = 1 << 1;
-        window.FLAG_COPPA_REQUIRED = 1 << 2;
-        window.FLAG_COPPA_APPROVED = 1 << 3;
-        window.FLAG_AVATAR_NOT_APPROVED = 1 << 4;
-        window.FLAG_AVATAR_REJECTED = 1 << 5;
-        window.FLAG_RECEIVE_PROMOTIONS = 1 << 6;
+window.FLAG_NEEDS_PROFILE = 1 << 1;
+window.FLAG_COPPA_REQUIRED = 1 << 2;
+window.FLAG_COPPA_APPROVED = 1 << 3;
+window.FLAG_AVATAR_NOT_APPROVED = 1 << 4;
+window.FLAG_AVATAR_REJECTED = 1 << 5;
+window.FLAG_RECEIVE_PROMOTIONS = 1 << 6;
 
-        window.AVATAR_NONE = 0;
-        window.AVATAR_LOCAL = 1;
-        window.AVATAR_FACEBOOK = 2;
-        window.CURRENT_PAGE = 1;
-    </script>
+window.AVATAR_NONE = 0;
+window.AVATAR_LOCAL = 1;
+window.AVATAR_FACEBOOK = 2;
+window.CURRENT_PAGE = 1;
+</script>
 </head>
 
 <body class="game" style="" cz-shortcut-listen="true">
 
-    <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
-            <clipPath id="heroIconClip">
-                <polygon points="72 0,81 8,105 8,105 98,98 105,11 105,0 94,0 0">
-                </polygon>
-            </clipPath>
-    </svg>
+  <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <clipPath id="heroIconClip">
+      <polygon points="72 0,81 8,105 8,105 98,98 105,11 105,0 94,0 0">
+      </polygon>
+    </clipPath>
+  </svg>
 
-    <div id="fb-root"></div>
+  <div id="fb-root"></div>
 
-    <section>
-        <div class="page">
-            <div class="background"></div>
-            <div id="appcontainer" class="ember-application">
-                <div id="ember563" class="ember-view">
-                    <div id="ember573" class="ember-view" style="opacity: 1;">
-                        <div class="outer_elements">
-                            <div class="top_left"></div>
-                            <div class="top_middle"></div>
-                            <div class="top_right"></div>
-                            <div class="bottom_left"></div>
-                            <div class="bottom_right"></div>
-                        </div>
+  <section>
+    <div class="page">
+      <div class="background"></div>
+      <div id="appcontainer" class="ember-application">
+        <div id="ember563" class="ember-view">
+          <div id="ember573" class="ember-view" style="opacity: 1;">
+            <div class="outer_elements">
+              <div class="top_left"></div>
+              <div class="top_middle"></div>
+              <div class="top_right"></div>
+              <div class="bottom_left"></div>
+              <div class="bottom_right"></div>
+            </div>
 
-                        <div class="current_date">
-                            <div class="month_day">Apr 30</div>
-                            <div class="year">2018</div>
-                        </div>
+            <div class="current_date">
+              <div class="month_day">Apr 30</div>
+              <div class="year">2018</div>
+            </div>
 
-                        <!-- <div class="legal_line">© 2015 MARVEL | PRODUCED BY
-                            <a href="http://www.hero-ventures.com/" target="_blank"><img class="legal_logo" src="static/images/hv_logo.png"></a>
-                        </div> -->
+<!-- <div class="legal_line">© 2015 MARVEL | PRODUCED BY
+<a href="http://www.hero-ventures.com/" target="_blank"><img class="legal_logo" src="static/images/hv_logo.png"></a>
+</div> -->
 
-                        <div id="signup_popup" class="popup" style="left: 560px; top: 219px;">
-
-
-                            <div class="header">
-                                <div class="image_1"></div>
-                                <div class="image_2"></div>
-                                <div class="image_3"></div>
-                                <div class="image_4"></div>
-                                <div class="image_5"></div>
-                                <div class="logo"></div>
-                                <div class="window_title">RECRUIT EVIDENCE</div>
-                                <div class="title_big">AGENT REGISTRATION</div>
-                                <div class="title_small">STATUS: RECRUIT</div>
-                            </div>
-                            <div class="progress_bar">
-                                <div class="markers">
-                                    <div id="menubar1" class="marker step_0 active" data-bindattr-591="591"></div>
-                                    <div id="menubar2" class="marker step_1" data-bindattr-592="592"></div>
-                                    <div id="menubar3" class="marker step_2" data-bindattr-593="593"></div>
-                                    <div id="menubar4" class="marker step_3" data-bindattr-594="594"></div>
-                                </div>
-                            </div>
-
-                            <div class="user_status">
-                                <span class="label">XP: </span><span class="value" style="min-width: 35px;" id="xp">50</span>
-                                <span class="label">LEVEL: </span><span class="value" style="width: 20px;" id="level">1</span>
-                            </div>
-
-                            <div class="border_left">
-                                <div class="image_1"></div>
-                                <div class="image_2"></div>
-                            </div>
-                            <div class="content_logo_background"></div>
-                            <div class="content_background"></div>
-
-                            <div class="content_container">
-                                <div class="content">
-                                    <form data-ember-action="642" name="registerform" id="registerform" class="create_user">
-                                        <div id="ember582" class="ember-view" style="opacity: 1;">
-                                            <div class="popup_content">
-                                                <div class="image" style="width: 367px;">
-                                                    <img src="static/images/nick_fury.jpg">
-                                                    <div class="image_message">
-                                                        <p>
-                                                            <span class="important">NICK FURY:</span> We have discovered a security breach and are working to identify the threat. Until we know it‘s severity, we will begin training new recruits to increase
-                                                            the ranks of S.H.I.E.L.D. Start your training now.
-                                                        </p>
-                                                    </div>
-                                                    <div style="padding-top: 25px; font-size: 20px;">
-                                                        <a id="ember615" class="ember-view simple_button active" href="#/account/login">Already registered?</a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="content" style="width: 280px; margin-left: 20px;">
-
-                                                    <div class="form">
-                                                        <div class="form_label right">
-                                                            <div class="title red">CREATE AN</div>
-                                                            <div class="title white">AGENT LOGIN</div>
-                                                        </div>
-
-                                                        <div class="header">
-                                                        </div>
-
-                                                        <div class="body">
-
-                                                            <label for="email">EMAIL</label><input id="Email" class="ember-view ember-text-field error" placeholder="Email" tabindex="1" type="email" name="Email" autocomplete="off" required="">
-                                                            <label for="Password">PASSWORD</label><input id="Password" class="ember-view ember-text-field error" placeholder="Password" tabindex="2" type="password" name="Password
-                             " autocomplete="off" required="">
-                                                            <label for="ConfirmPassword">CONFIRM PASSWORD</label><input id="ConfirmPassword" class="ember-view ember-text-field error" placeholder="Confirm Password" tabindex="3" type="password
-                             " name="ConfirmPassword" autocomplete="off" required="">
-                                                            <label for="BirthDate">BIRTHDATE</label><input id="BirthDate" class="ember-view ember-text-field birthDate error" placeholder="DD/MM/YYYY" tabindex="5" type="datetime" name="BirthDate
-                             " autocomplete="off" required="">
-
-                                                        </div>
-
-                                                        <div class="footer">
-                                                        </div>
-                                                    </div>
+<div id="signup_popup" class="popup">
 
 
+  <div class="header">
+    <div class="image_1"></div>
+    <div class="image_2"></div>
+    <div class="image_3"></div>
+    <div class="image_4"></div>
+    <div class="image_5"></div>
+    <div class="logo"></div>
+    <div class="window_title">RECRUIT EVIDENCE</div>
+    <div class="title_big">AGENT REGISTRATION</div>
+    <div class="title_small">STATUS: RECRUIT</div>
+  </div>
+  <div class="progress_bar">
+    <div class="markers">
+      <div id="menubar1" class="marker step_0 active" data-bindattr-591="591"></div>
+      <div id="menubar2" class="marker step_1" data-bindattr-592="592"></div>
+      <div id="menubar3" class="marker step_2" data-bindattr-593="593"></div>
+      <div id="menubar4" class="marker step_3" data-bindattr-594="594"></div>
+    </div>
+  </div>
 
-                                                    <div style="height: 20px; width: 10px; display: block;"></div>
+  <div class="user_status">
+    <span class="label">XP: </span><span class="value" style="min-width: 35px;" id="xp">50</span>
+    <span class="label">LEVEL: </span><span class="value" style="width: 20px;" id="level">1</span>
+  </div>
 
+  <div class="border_left">
+    <div class="image_1"></div>
+    <div class="image_2"></div>
+  </div>
+  <div class="content_logo_background"></div>
+  <div class="content_background"></div>
 
+  <div class="content_container">
+    <div class="content">
+      <form data-ember-action="642" name="registerform" id="registerform" class="create_user">
+        <div id="ember582" class="ember-view" style="opacity: 1;">
+          <!-- section 1 -->
+          <div class="popup_content">
+            <div class="image" style="width: 367px;">
+              <img src="dist/images/nick_fury.jpg">
+              <div class="image_message">
+                <p>
+                  <span class="important">NICK FURY:</span> We have discovered a security breach and are working to identify the threat. Until we know it‘s severity, we will begin training new recruits to increase
+                  the ranks of S.H.I.E.L.D. Start your training now.
+                </p>
+              </div>
+              <div style="padding-top: 25px; font-size: 20px;">
+                <a id="ember615" class="ember-view simple_button active" href="#/account/login">Already registered?</a>
+              </div>
+            </div>
 
+            <div class="content" style="width: 280px; margin-left: 20px;">
 
-                                                    <div style="font-size: 13px; font-family: &quot;Eurostile&quot;, &quot;Verdana&quot;, Arial; margin-top: 20px;">
+              <div class="form">
+                <div class="form_label right">
+                  <div class="title red">CREATE AN</div>
+                  <div class="title white">AGENT LOGIN</div>
+                </div>
 
+                <div class="header">
+                </div>
 
-                                                        <div style="font-size: 10px; font-family: &quot;Eurostile&quot;, &quot;Verdana&quot;, Arial; color: #8FC8E9; margin-top: 5px;">
-                                                            By clicking the"Next" button below to submit my registration, I acknowledge that I have read, understand and agree to be bound by the TMX <a href="/player/#/signup/terms">Terms of Use</a> and
-                                                            <a href="/player/#/signup/privacyPolicy">Privacy Policy</a>.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="clear"></div>
+                <div class="body">
 
-                                            </div>
-
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-
-
-                            <div class="border_right">
-                                <div class="image_1"></div>
-                                <div class="image_2"></div>
-                            </div>
-                            <div class="footer">
-                                <div class="image_1"></div>
-                                <div class="image_2"></div>
-                                <div class="image_3"></div>
-                            </div>
-
-                            <div class="tme_logo"></div>
-
-                            <div class="nav_buttons_container">
-                                <a href="#" id="nav_button_left" class="nav_button left" data-ember-action="597" data-bindattr-598="598">BACK</a>
-                                <a href="#" id="nav_button_right" data-ember-action="660" class="nav_button right active">NEXT</a>
-
-
-
-                                <script>
-                                    $('#nav_button_right').click(function(e) {
-                                        e.preventDefault();
-                                        var error = false;
-                                        if ($("#Email").hasClass("error") || $("#Password").hasClass("error") || $("#ConfirmPassword").hasClass("error") || $("#BirthDate").hasClass("error")) {
-                                            error = true;
-                                        }
-                                        if (error == true) {
-                                            if (window.CURRENT_PAGE == 1) {
-                                                window.CURRENT_PAGE = 2;
-                                                $("#ember582").css("display", "none");
-                                                $("#nav_button_left").addClass("active");
-                                                $("#level").text("2");
-                                                $("#xp").text("100");
-                                                $("#menubar2").addClass("active");
-                                            }
-                                        }
-
-                                    });
-                                </script>
-
-
-
-
-                            </div>
-
-                            <div class="footer_buttons_container">
-                                <a class="simple_button active" data-ember-action="602">PRIVACY POLICY</a>
-                                <a class="simple_button active" data-ember-action="603">TERMS OF USE</a>
-                                <a href="http://themarvelexperiencetour.com/" target="_blank" class="simple_button active">BACK TO TOUR</a>
-                            </div>
-
-
-                            <div class="debug_errors"></div>
-                        </div>
-
-                        <div class="jocasta">
-                            <div class="back" style="transform: rotate(292.528deg);"></div>
-                            <div class="front" style="transform: rotate(292.528deg);"></div>
-                        </div>
-
-
-
-                        <!--
-    <p><button data-ember-action="604">OPEN MODAL</button></p>
-    -->
-                    </div>
-
-
+                  <label for="email">USERNAME</label><input id="Email" class="ember-view ember-text-field error" placeholder="Email" tabindex="1" type="email" name="Email" autocomplete="off" required="">
+                  <label for="Password">PASSWORD</label><input id="Password" class="ember-view ember-text-field error" placeholder="Password" tabindex="2" type="password" name="Password
+                  " autocomplete="off" required="">
+                  <label for="ConfirmPassword">CONFIRM PASSWORD</label><input id="ConfirmPassword" class="ember-view ember-text-field error" placeholder="Confirm Password" tabindex="3" type="password
+                  " name="ConfirmPassword" autocomplete="off" required="">
+                  <label for="BirthDate">BIRTHDATE</label><input id="BirthDate" class="ember-view ember-text-field birthDate error" placeholder="DD/MM/YYYY" tabindex="5" type="datetime" name="BirthDate
+                  " autocomplete="off" required="">
 
                 </div>
-            </div>
 
-            <div id="gamescreenshot">
+                <div class="footer">
+                </div>
+              </div>
+
+              <div style="height: 20px; width: 10px; display: block;"></div>
+
+              <div style="font-size: 13px; font-family: &quot;Eurostile&quot;, &quot;Verdana&quot;, Arial; margin-top: 20px;">
+
+                <div style="font-size: 10px; font-family: &quot;Eurostile&quot;, &quot;Verdana&quot;, Arial; color: #8FC8E9; margin-top: 5px;">
+                  By clicking the"Next" button below to submit my registration, I acknowledge that I have read, understand and agree to be bound by the TMX <a href="/player/#/signup/terms">Terms of Use</a> and
+                  <a href="/player/#/signup/privacyPolicy">Privacy Policy</a>.
+                </div>
+              </div>
             </div>
+            <div class="clear"></div>
+
+          </div>
+
         </div>
-    </section>
+      </form>
 
-    <!-- <script src="/static/build/js/app.build.min.js?jsb=1.025"></script> -->
+      <!-- section 2 -->
+      <div id="ember745" class="ember-view" style="opacity: 1;">    <div class="popup_content" style="width: 700px;">
+        <div class="form" style="padding-bottom: 0px;">
+          <div class="form_label" style="width: 700px;">
+            <div class="title red">TIME TO</div><div class="title white">BEGIN TRAINING</div><div class="title grey"> | Please fill in the S.H.I.E.L.D. ID card below.</div>
+          </div>
+        </div>
+        <div class="shield_id">
+          <div class="bar_code"><img src="dist/images/shield_id/barcode.png" alt="" width="280" height="20"></div>
+
+          <div id="upload_photo_holder">
+            <div id="upload_photo" style="display: block;" class="dz-clickable">
+              <div class="unknown"></div>
+              <div class="dz-preview dz-file-preview">
+                <div class="dz-details">
+                  <div class="dz-filename"><span data-dz-name=""></span></div>
+                  <div class="dz-size" data-dz-size=""></div>
+                  <img data-dz-thumbnail="">
+                </div>
+                <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+                <div class="dz-success-mark"></div>
+                <div class="dz-error-mark"></div>
+                <div class="dz-error-message"><span data-dz-errormessage=""></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="player_avatar">
+          </div>
+
+<div class="panel">
+<img id="thumb" width="100px" height="100px" src="/playground/images/icons/128px/zurb.png">
+<form id="newHotnessForm" action="https://tickets.smartag.us/api/TicketPhoto" method="POST">
+<label>Upload a picture of yourself</label>
+<input type="file" size="20" id="imageUpload" class="  ">
+<a class="button">Save</a>
+</form>
+</div>
+          <div class="qr_image">
+            <img src="dist/images/shield_id/qrcode.png">
+          </div>
+
+          <form data-ember-action="748" name="form">
+
+            <input id="ember749" class="ember-view ember-text-field wide big error" placeholder="First name" tabindex="1" type="text" name="first_name" autocomplete="off" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAfBJREFUWAntVk1OwkAUZkoDKza4Utm61iP0AqyIDXahN2BjwiHYGU+gizap4QDuegWN7lyCbMSlCQjU7yO0TOlAi6GwgJc0fT/fzPfmzet0crmD7HsFBAvQbrcrw+Gw5fu+AfOYvgylJ4TwCoVCs1ardYTruqfj8fgV5OUMSVVT93VdP9dAzpVvm5wJHZFbg2LQ2pEYOlZ/oiDvwNcsFoseY4PBwMCrhaeCJyKWZU37KOJcYdi27QdhcuuBIb073BvTNL8ln4NeeR6NRi/wxZKQcGurQs5oNhqLshzVTMBewW/LMU3TTNlO0ieTiStjYhUIyi6DAp0xbEdgTt+LE0aCKQw24U4llsCs4ZRJrYopB6RwqnpA1YQ5NGFZ1YQ41Z5S8IQQdP5laEBRJcD4Vj5DEsW2gE6s6g3d/YP/g+BDnT7GNi2qCjTwGd6riBzHaaCEd3Js01vwCPIbmWBRx1nwAN/1ov+/drgFWIlfKpVukyYihtgkXNp4mABK+1GtVr+SBhJDbBIubVw+Cd/TDgKO2DPiN3YUo6y/nDCNEIsqTKH1en2tcwA9FKEItyDi3aIh8Gl1sRrVnSDzNFDJT1bAy5xpOYGn5fP5JuL95ZjMIn1ya7j5dPGfv0A5eAnpZUY3n5jXcoec5J67D9q+VuAPM47D3XaSeL4AAAAASUVORK5CYII=&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+            <br>
+            <input id="ember750" class="ember-view ember-text-field wide big error" placeholder="Last name" tabindex="2" type="text" name="last_name" autocomplete="off" required="">
+
+            <div class="table">
+              <div class="row"><label>BIRTHDATE</label></div>
+              <div class="row">
+                <div class="cell">
+                  <input id="ember751" class="ember-view ember-text-field birthDate" placeholder="YYYY" tabindex="3" type="text" name="birth_date_year" autocomplete="off" required="">
+                  <input id="ember752" class="ember-view ember-text-field birthDate" placeholder="MM" tabindex="4" type="text" name="birth_date_month" autocomplete="off" required="">
+                  <input id="ember753" class="ember-view ember-text-field birthDate" placeholder="DD" tabindex="5" type="text" name="birth_date_day" autocomplete="off" required="">
+                </div>
+              </div>
+            </div>
+            <div class="table">
+              <div class="row"><label>HEIGHT</label><label>EYE COLOR</label><label>GENDER</label><label>SPECIES</label></div>
+              <div class="row">
+                <div class="cell">
+                  <input id="ember754" class="ember-view ember-text-field error" placeholder="CM" tabindex="6" type="text" name="height_cm" autocomplete="off" required="">
+                </div>
+                <div class="cell">
+                  <div id="ember762" class="ember-view error" tabindex="8">    <div class="graphic_select">
+                    <a href="#" class="selected" data-ember-action="767">
+                      <div class="icon"><img id="selectedEyeColor" src="/static/images/eye_colors/0.jpg"></div>
+                    </a>
+
+                    <div class="graphic_select_items">
+
+                      <a href="#" class="item" data-ember-action="1" title="Black">
+                        <div class="icon"><img src="/static/images/eye_colors/1.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="2" title="Blue">
+                        <div class="icon"><img src="/static/images/eye_colors/2.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="3" title="Brown">
+                        <div class="icon"><img src="/static/images/eye_colors/3.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="4" title="Grey">
+                        <div class="icon"><img src="/static/images/eye_colors/4.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="5" title="Green">
+                        <div class="icon"><img src="/static/images/eye_colors/5.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="6" title="Hazel">
+                        <div class="icon"><img src="/static/images/eye_colors/6.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="7" title="Red">
+                        <div class="icon"><img src="/static/images/eye_colors/7.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="8" title="Pink">
+                        <div class="icon"><img src="/static/images/eye_colors/8.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="9" title="Yellow">
+                        <div class="icon"><img src="/static/images/eye_colors/9.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="10" title="Orange">
+                        <div class="icon"><img src="/static/images/eye_colors/10.jpg"></div>
+                      </a>
+
+                      <a href="#" class="item" data-ember-action="11" title="Purple">
+                        <div class="icon"><img src="/static/images/eye_colors/11.jpg"></div>
+                      </a>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell">
+                <div id="ember763" class="ember-view error" tabindex="9">    <div class="graphic_select">
+                  <a href="#" class="selected" data-ember-action="801">
+                    <div class="icon"><img id="selectedGender" src="/static/images/gender/0.jpg"></div>
+                  </a>
+
+                  <div class="graphic_select_items">
+
+                    <a href="#" class="item" data-ember-action="1" title="Male">
+                      <div class="icon"><img src="/static/images/gender/1.jpg"></div>
+                    </a>
+
+                    <a href="#" class="item" data-ember-action="2" title="Female">
+                      <div class="icon"><img src="/static/images/gender/2.jpg"></div>
+                    </a>
+
+                    <a href="#" class="item" data-ember-action="3" title="Other">
+                      <div class="icon"><img src="/static/images/gender/3.jpg"></div>
+                    </a>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cell">
+              <div id="ember764" class="ember-view error" tabindex="10">    <div class="graphic_select">
+                <a href="#" class="selected" data-ember-action="814">
+                  <div class="icon"><img id="selectedSpecies" src="/static/images/species/0.jpg"></div>
+                </a>
+
+                <div class="graphic_select_items">
+
+                  <a href="#" class="item" data-ember-action="1" title="Human">
+                    <div class="icon"><img src="/static/images/species/1.jpg"></div>
+                  </a>
+
+                  <a href="#" class="item" data-ember-action="2" title="Android">
+                    <div class="icon"><img src="/static/images/species/2.jpg"></div>
+                  </a>
+
+                  <a href="#" class="item" data-ember-action="3" title="Superhuman">
+                    <div class="icon"><img src="/static/images/species/3.jpg"></div>
+                  </a>
+
+                  <a href="#" class="item" data-ember-action="4" title="Animal">
+                    <div class="icon"><img src="/static/images/species/4.jpg"></div>
+                  </a>
+
+                  <a href="#" class="item" data-ember-action="5" title="Alien">
+                    <div class="icon"><img src="/static/images/species/5.jpg"></div>
+                  </a>
+
+                  <a href="#" class="item" data-ember-action="6" title="Unknown">
+                    <div class="icon"><img src="/static/images/species/6.jpg"></div>
+                  </a>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="table">
+        <div class="row"><label>ISSUE/LOCATION</label><label>ZIP CODE</label></div>
+        <div class="row">
+          <div class="cell">
+            <input id="ember765" class="ember-view ember-text-field wide city error" placeholder="ISSUE LOCATION (CITY)" tabindex="11" type="text" name="city" autocomplete="off" required="">
+          </div>
+          <div class="cell">
+            <input id="ember766" class="ember-view ember-text-field zip_code error" placeholder="ZIP CODE" tabindex="12" type="text" name="zip_code" autocomplete="off" required="">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="clear"></div>
+<!--
+<div class="form">
+<div class="header"></div>
+<div class="body">
+*If you are under the age of 13, you must have your parents permission to participate in the training system.
+</div>
+<div class="footer"></div>
+</div>
+-->
+</div>
+</div>
+<!-- end of section 2 -->
+
+<!-- section 3 -->
+<div id="ember849" class="ember-view" style="opacity: 1;">
+  <div class="popup_content">
+    <div class="content" style="width: 720px;">
+      <div class="form" style="padding-bottom: 10px;">
+        <div class="form_label" style="width: 700px;">
+          <div class="title red">WHO IS YOUR</div><div class="title white">FAVORITE HERO?</div>
+        </div>
+      </div>
 
 
-    <div id="testdiv" style="height: 1in; left: -100%; position: absolute; top: -100%; width: 1in;"></div>
-    <script type="text/javascript">
-        $(window).load(function() {
-            window.dpi_x = document.getElementById('testdiv').offsetWidth;
-            window.dpi_y = document.getElementById('testdiv').offsetHeight;
-        });
-    </script>
+      <div id="hero_1" class="select_hero">
+        <a href="#" data-ember-action="856" alt="Spider-Man" title="Spider-Man">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/spiderman.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Spider-Man</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
 
-    <script>
-        function isValidEmailAddress(emailAddress) {
-            var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
-            return pattern.test(emailAddress);
-        }
+      <div id="hero_2" class="select_hero">
+        <a href="#" data-ember-action="858" alt="Ironman" title="Ironman">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/ironman.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Ironman</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
 
-        $("#Email").change(function() {
-            if ($("#Email").val() != "" && isValidEmailAddress($("#Email").val())) {
-                $("#Email").removeClass("error");
-            } else {
-                $("#Email").addClass("error");
-            }
-        });
+      <div id="hero_3" class="select_hero">
+        <a href="#" data-ember-action="860" alt="Thor" title="Thor">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/thor.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Thor</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
 
-        $("#Password").change(function() {
-            if ($("#Password").val().length < 5) {
-                $("#Password").addClass("error");
-            } else {
-                $("#Password").removeClass("error");
-            }
-        });
+      <div id="hero_4" class="select_hero">
+        <a href="#" data-ember-action="862" alt="Hulk" title="Hulk">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/hulk.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Hulk</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
 
-        $("#ConfirmPassword").change(function() {
-            if ($("#ConfirmPassword").val() != $("#Password").val()) {
-                $("#ConfirmPassword").addClass("error");
-            } else {
-                $("#ConfirmPassword").removeClass("error");
-            }
-        });
+      <div id="hero_5" class="select_hero">
+        <a href="#" data-ember-action="864" alt="Wolverine" title="Wolverine">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/wolverine.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Wolverine</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
 
-        $("#BirthDate").change(function() {
-            if (Date.parse($("#BirthDate").val())) {
-                $("#BirthDate").removeClass("error");
-            } else {
-                $("#BirthDate").addClass("error");
-            }
-        });
-    </script>
+      <div id="hero_6" class="select_hero">
+        <a href="#" data-ember-action="866" alt="Captain America" title="Captain America">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/captain_america.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Captain America</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
+
+      <div id="hero_7" class="select_hero">
+        <a href="#" data-ember-action="868" alt="Black Widow" title="Black Widow">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/black_widow.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Black Widow</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
+
+      <div id="hero_8" class="select_hero">
+        <a href="#" data-ember-action="870" alt="Nick Fury" title="Nick Fury">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/nick_fury.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Nick Fury</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
+
+      <div id="hero_9" class="select_hero">
+        <a href="#" data-ember-action="872" alt="Black Panther" title="Black Panther">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/black_panther.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Black Panther</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
+
+      <div id="hero_10" class="select_hero">
+        <a href="#" data-ember-action="874" alt="She-Hulk" title="She-Hulk">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/she_hulk.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">She-Hulk</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
+
+      <div id="hero_11" class="select_hero">
+        <a href="#" data-ember-action="876" alt="Vision" title="Vision">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/vision.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Vision</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
+
+      <div id="hero_12" class="select_hero">
+        <a href="#" data-ember-action="878" alt="Iron Fist" title="Iron Fist">
+          <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/iron_fist.jpg">
+          <div class="name_container" style="clip-path: url('#heroIconClip');">
+            <div class="name">Iron Fist</div>
+          </div>
+          <div class="border"></div>
+        </a>
+      </div>
+
+
+      <div class="clear"></div>
+      <div class="form" style="margin: 20px 0px 0px 17px; width: 680px;">
+        <div class="header"></div>
+        <div class="body">
+          We all need Heroes in our lives. Choose your Marvel Experience
+          Super Hero mentor and they will guide you through the training
+          process until agent access is granted and you are ready to
+          attend the tour. Always remember, you can be Super Today and a
+          Hero for Life!
+        </div>
+        <div class="footer"></div>
+      </div>
+
+    </div>
+
+    <div class="clear"></div>
+
+  </div>
+
+</div>
+<!-- end of section 3 -->
+    </div>
+  </div>
+
+
+
+  <div class="border_right">
+    <div class="image_1"></div>
+    <div class="image_2"></div>
+  </div>
+  <div class="footer">
+    <div class="image_1"></div>
+    <div class="image_2"></div>
+    <div class="image_3"></div>
+  </div>
+
+  <div class="tme_logo"></div>
+
+  <div class="nav_buttons_container">
+    <a href="#" id="nav_button_left" class="nav_button left" data-ember-action="597" data-bindattr-598="598">BACK</a>
+    <a href="#" id="nav_button_right" data-ember-action="660" class="nav_button right active">NEXT</a>
+  </div>
+
+  <div class="footer_buttons_container">
+    <a class="simple_button active" data-ember-action="602">PRIVACY POLICY</a>
+    <a class="simple_button active" data-ember-action="603">TERMS OF USE</a>
+    <a href="http://themarvelexperiencetour.com/" target="_blank" class="simple_button active">BACK TO TOUR</a>
+  </div>
+
+
+  <div class="debug_errors"></div>
+</div>
+
+<div class="jocasta">
+  <div class="back" style="transform: rotate(292.528deg);"></div>
+  <div class="front" style="transform: rotate(292.528deg);"></div>
+</div>
+
+
+
+<!--
+<p><button data-ember-action="604">OPEN MODAL</button></p>
+-->
+</div>
+
+
+
+</div>
+</div>
+
+<div id="gamescreenshot">
+</div>
+</div>
+</section>
+
+<!-- <script src="dist/build/js/main.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+<script src="dist/build/js/ajaxupload.js"></script>
+<script src="dist/build/js/app.js"></script>
+
+
+<!-- <div id="testdiv" style="height: 1in; left: -100%; position: absolute; top: -100%; width: 1in;"></div> -->
+<!-- <script type="text/javascript">
+  $(window).load(function() {
+    window.dpi_x = document.getElementById('testdiv').offsetWidth;
+    window.dpi_y = document.getElementById('testdiv').offsetHeight;
+  });
+</script> -->
+
 
 
 

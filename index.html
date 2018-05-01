@@ -150,6 +150,8 @@ window.CURRENT_PAGE = 1;
 window.selectedEyeColor = "";
 window.selectedGender = "";
 window.selectedSpecies = "";
+window.selectedHero = "";
+window.photoKey = "";
 </script>
 </head>
 
@@ -163,6 +165,9 @@ window.selectedSpecies = "";
   </svg>
 
   <div id="fb-root"></div>
+
+  <!-- overlay loading -->
+  <div id="overlay"><div class="center"><img src="dist/images/loading.gif" ></div></div>
 
   <section>
     <div class="page">
@@ -285,10 +290,6 @@ window.selectedSpecies = "";
         </div>
       </form>
 
-<!-- <form id="myAwesomeForm" method="post" action="https://tickets.smartag.us/api/TicketPhoto">
-    <input type="file" id="sortpicture" name="file" />
-    <input type="submit" id="upload" name="upload" />
-</form> -->
       <!-- section 2 -->
       <div id="ember745" class="ember-view" style="opacity: 1;">    <div class="popup_content" style="width: 700px;">
         <div class="form" style="padding-bottom: 0px;">
@@ -302,19 +303,10 @@ window.selectedSpecies = "";
           <div id="upload_photo_holder">
             <div id="upload_photo" style="display: block;" class="dz-clickable">
               <div class="unknown"></div>
-              <div class="dz-preview dz-file-preview">
-                <div class="dz-details">
-                  <div class="dz-filename"><span data-dz-name=""></span></div>
-                  <div class="dz-size" data-dz-size=""></div>
-                  <img data-dz-thumbnail="">
-                </div>
-                <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
-                <div class="dz-success-mark"></div>
-                <div class="dz-error-mark"></div>
-                <div class="dz-error-message"><span data-dz-errormessage=""></span></div>
-              </div>
+              <img id="userPicture" src="#" alt="your image" />
             </div>
           </div>
+          <input type="file" name="file" id="fileUpload">
 
           <div id="player_avatar">
           </div>
@@ -503,7 +495,7 @@ window.selectedSpecies = "";
 
 
       <div id="hero_1" class="select_hero">
-        <a href="#" data-ember-action="856" alt="Spider-Man" title="Spider-Man">
+        <a href="#" data-ember-action="spiderman" alt="spiderman" title="Spider-Man">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/spiderman.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Spider-Man</div>
@@ -513,7 +505,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_2" class="select_hero">
-        <a href="#" data-ember-action="858" alt="Ironman" title="Ironman">
+        <a href="#" data-ember-action="ironman" alt="ironman" title="Ironman">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/ironman.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Ironman</div>
@@ -523,7 +515,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_3" class="select_hero">
-        <a href="#" data-ember-action="860" alt="Thor" title="Thor">
+        <a href="#" data-ember-action="thor" alt="thor" title="Thor">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/thor.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Thor</div>
@@ -533,7 +525,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_4" class="select_hero">
-        <a href="#" data-ember-action="862" alt="Hulk" title="Hulk">
+        <a href="#" data-ember-action="hulk" alt="hulk" title="Hulk">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/hulk.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Hulk</div>
@@ -543,7 +535,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_5" class="select_hero">
-        <a href="#" data-ember-action="864" alt="Wolverine" title="Wolverine">
+        <a href="#" data-ember-action="wolverine" alt="wolverine" title="Wolverine">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/wolverine.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Wolverine</div>
@@ -553,7 +545,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_6" class="select_hero">
-        <a href="#" data-ember-action="Captain America" alt="Captain America" title="Captain America">
+        <a href="#" data-ember-action="captain_america" alt="Captain America" title="Captain America">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/captain_america.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Captain America</div>
@@ -563,7 +555,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_7" class="select_hero">
-        <a href="#" data-ember-action="Black Widow" alt="Black Widow" title="Black Widow">
+        <a href="#" data-ember-action="black_widow" alt="Black Widow" title="Black Widow">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/black_widow.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Black Widow</div>
@@ -573,7 +565,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_8" class="select_hero">
-        <a href="#" data-ember-action="Nick Fury" alt="Nick Fury" title="Nick Fury">
+        <a href="#" data-ember-action="nick_fury" alt="Nick Fury" title="Nick Fury">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/nick_fury.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Nick Fury</div>
@@ -583,7 +575,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_9" class="select_hero">
-        <a href="#" data-ember-action="Black Panther" alt="Black Panther" title="Black Panther">
+        <a href="#" data-ember-action="black_panther" alt="Black Panther" title="Black Panther">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/black_panther.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Black Panther</div>
@@ -593,7 +585,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_10" class="select_hero">
-        <a href="#" data-ember-action="She Hulk" alt="She-Hulk" title="She-Hulk">
+        <a href="#" data-ember-action="she_hulk" alt="She-Hulk" title="She-Hulk">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/she_hulk.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">She-Hulk</div>
@@ -603,7 +595,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_11" class="select_hero">
-        <a href="#" data-ember-action="Vision" alt="Vision" title="Vision">
+        <a href="#" data-ember-action="vision" alt="Vision" title="Vision">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/vision.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Vision</div>
@@ -613,7 +605,7 @@ window.selectedSpecies = "";
       </div>
 
       <div id="hero_12" class="select_hero">
-        <a href="#" data-ember-action="Iron Fist" alt="Iron Fist" title="Iron Fist">
+        <a href="#" data-ember-action="iron_fist" alt="Iron Fist" title="Iron Fist">
           <img style="clip-path: url('#heroIconClip');" src="/static/images/heroes/173x173/iron_fist.jpg">
           <div class="name_container" style="clip-path: url('#heroIconClip');">
             <div class="name">Iron Fist</div>
@@ -630,7 +622,7 @@ window.selectedSpecies = "";
           We all need Heroes in our lives. Choose your Marvel Experience
           Super Hero mentor and they will guide you through the training
           process until agent access is granted and you are ready to
-          attend the tour. Always remember, you can be Super Today and a
+          attend the attraction. Always remember, you can be Super Today and a
           Hero for Life!
         </div>
         <div class="footer"></div>
@@ -671,7 +663,7 @@ window.selectedSpecies = "";
 
     </div>
 
-    <div style="width: 150px; height: 430px; left: 320px; z-index: 1; position: absolute;"><div style="display: block; z-index: 0; background: url(/static/images/heroes/characters/iron_fist.png); background-position: center center; background-repeat: no-repeat; background-size: auto 400px; position: absolute; top: 0px; bottom: 0px; left: -300px; right: -300px; margin: auto;"></div></div>
+    <div style="width: 150px; height: 430px; left: 320px; z-index: 1; position: absolute;"><div id="bigHero" style="display: block; z-index: 0; background-position: center center; background-repeat: no-repeat; background-size: auto 400px; position: absolute; top: 0px; bottom: 0px; left: -300px; right: -300px; margin: auto;"></div></div>
 
 
     <div class="form" style="width: 290px; right: 20px; height: 430px; z-index: 2; position: absolute;">
@@ -695,6 +687,381 @@ window.selectedSpecies = "";
 
 </div>
 <!-- end of section 4-->
+<!-- toc -->
+<div id="ember916" class="ember-view" style="opacity: 1;"><div class="popup_content" style="margin-top: 60px;">
+    <div class="content" style="width: 600px; height: 430px; overflow : auto; ">
+        <div class="form">
+            <div class="form_label left">
+                <div class="title red">PRIVACY</div><div class="title white">POLICY</div>
+            </div>
+
+            <div class="header">
+            </div>
+
+            <div class="body" style="padding: 20px; text-align: left;">
+                <p>
+                Our privacy policy is designed to provide transparency into our
+                privacy practices and principles, in a format that our guests
+                can navigate, read and understand. We are dedicated to treating
+                your personal information with care and respect.
+                </p>
+
+                <p>This privacy policy describes the treatment of information
+                provided or collected on the sites where this privacy policy is
+                posted. It also explains the treatment of information provided
+                or collected on applications we make available on third-party
+                sites or platforms if disclosed to you in connection with use
+                of the application. We follow this privacy policy in accordance
+                with local law in the places where we operate.
+                </p>
+
+                <p>
+                   &nbsp;&nbsp; 1.  Types of Information We Collect<br>
+                   &nbsp;&nbsp; 2.  How We Collect Your Information<br>
+                   &nbsp;&nbsp; 3.  Use of Your Information by The Marvel Experience Tour<br>
+                   &nbsp;&nbsp; 4.  Sharing Your Information with Other Companies<br>
+                   &nbsp;&nbsp; 5.  Your Controls and Choices<br>
+                   &nbsp;&nbsp; 6.  Children’s Privacy<br>
+                   &nbsp;&nbsp; 7.  Data Security and Integrity<br>
+                   &nbsp;&nbsp; 8.  Data Transfers, Storage and Processing Globally<br>
+                   &nbsp;&nbsp; 9.  Changes to this Privacy Policy<br>
+                   &nbsp;&nbsp; 10. Comments and Questions<br>
+                </p>
+
+                <h3>1. Types of Information We Collect</h3>
+
+                <p>
+                We collect two basic types of information -&nbsp;personal
+                information&nbsp;and&nbsp;anonymous information&nbsp;- and we may use personal
+                and anonymous information to create a third type of
+                information,&nbsp;aggregate information. We collect the following
+                categories of information:
+                </p>
+
+                <p>
+                    </p><ul>
+                        <li>Registration information you provide when you create an account, including your first name and surname, country of residence, gender, date of birth, email address, username and password</li>
+
+                        <li>Transaction information you provide when you request information or purchase a product or service from us, whether on our sites or through our applications, including your postal address, telephone number and payment information</li>
+
+                        <li>Information you provide in&nbsp;public forums&nbsp;on our sites and&nbsp;applications</li>
+
+                        <li>Information sent either one-to-one or within a limited group using our message, chat, post or similar functionality, where we are permitted by law to collect this information</li>
+
+                        <li>Information you provide to us when you use our sites and applications, our applications on third-party sites or platforms such as social networking sites, or link your profile on a third-party site or platform with your registration account</li>
+
+                        <li>Location information when you visit our sites or use our applications, including location information either provided by a mobile device interacting with one of our sites or applications, or associated with your&nbsp;IP address, where we are permitted by law to process this information</li>
+
+                        <li>Usage, viewing and technical data, including your device identifier or IP address, when you visit our sites, use our applications on third-party sites or platforms or open emails we send</li>
+                    </ul>
+                <p></p>
+
+
+                <h3>2. How We Collect Your Information</h3>
+                <p>
+                    </p><ul>
+                        <li>We collect information you provide to us when you request products, services or information from us, register with us, participate in&nbsp;public forums&nbsp;or other activities on our sites and&nbsp;applications, respond to customer surveys, or otherwise interact with us. Please keep in mind that when you provide information to us on a third-party site or platform (for example, via our applications), the information you provide may be separately collected by the third-party site or platform. The information we collect is covered by this privacy policy and the information the third-party site or platform collects is subject to the third-party site or platform’s privacy practices. Privacy choices you have made on the third-party site or platform will not apply to our use of the information we have collected directly through our applications.</li>
+
+                        <li>We collect information through technology, such as cookies, Flash cookies and Web beacons, including when you visit our sites and applications or use our applications on third-party sites or platforms. Please visit&nbsp;Online Tracking and Advertising&nbsp;for further information, including Do Not Track and how to disable cookies.</li>
+
+                        <li>We acquire information from other trusted sources to update or supplement the information you provided or we collected automatically. Local law may require that you authorize the third party to share your information with us before we can acquire it.</li>
+                    </ul>
+                <p></p>
+
+                <h3>3. Use of Your Information by The Marvel Experience Tour</h3>
+
+                <p>
+                A&nbsp;member&nbsp;of&nbsp;The Marvel Experience Tour, which includes many
+                different brands, will be the data controller for your
+                information. The relevant data controller(s) can be
+                determined&nbsp;here. Other members of The Marvel Experience Tour
+                may have access to your information where they perform services
+                on behalf of the data controller(s) (as a&nbsp;data processor) and,
+                unless prohibited under applicable law, for use on their own
+                behalf (as a data controller) for the following purposes:
+                </p>
+
+                <p>
+                    </p><ul>
+                        <li>Provide you with the products and services you request</li>
+                         <li>Communicate with you about your account or transactions with us and send you information about features on our sites and&nbsp;applications&nbsp;or changes to our policies</li>
+                         <li>Consistent with local law and choices and controls that may be available to you:</li>
+                         <li>Send you offers and promotions for our products and services or third-party products and services</li>
+                         <li>Personalize content and experiences on our sites and applications</li>
+                         <li>Provide you with advertising based on your activity on our sites and applications and on third-party sites and applications. To learn more about how we use your information for personalization and tracking, please visit&nbsp;Online Tracking and Advertising.</li>
+                         <li>Optimize or improve our products, services and operations</li>
+                         <li>Detect, investigate and prevent activities that may violate our policies or be illegal</li>
+                    </ul>
+
+                <h3>4. Sharing Your Information with Other Companies</h3>
+
+                <p>We will not share your&nbsp;personal information&nbsp;outside&nbsp;The
+                Marvel Experience Tour&nbsp;except in limited circumstances,
+                including:
+                </p>
+                <p>
+                    </p><ul>
+                        <li>When you allow us to share your personal information with another company, such as:<p></p>
+
+                        </li><li>Electing to share your personal information with carefully selected companies so that they can send you offers and promotions about their products and services<p></p>
+
+                        </li><li>Directing us to share your personal information with third-party sites or platforms, such as social networking sites<p></p>
+
+                        </li><li>Please note that once we share your personal information with another company, the information received by the other company becomes subject to the other company’s privacy practices.<p></p>
+
+                        </li><li>When we cooperate with financial institutions to offer co-branded products or services to you; however, we will do so only if permitted by applicable law and, in these cases, the financial institutions are prohibited from using your personal information for purposes other than those related to the co-branded products or services<p></p>
+
+                        </li><li>When companies perform services on our behalf, like package delivery and customer service; however, these companies are prohibited from using your personal information for purposes other than those requested by us or required by law<p></p>
+
+                        </li><li>When we share personal information with third parties in connection with the sale of a business, to enforce our Terms of Use or rules, to ensure the safety and security of our guests and third parties, to protect our rights and property and the rights and property of our guests and third parties, to comply with legal process or in other cases if we believe in good faith that disclosure is required by law<p></p>
+                    </li></ul>
+                <p></p>
+
+
+                <h3>5. Your Controls and Choices</h3>
+
+                <p>We provide you the ability to exercise certain controls and
+                choices regarding our collection, use and sharing of your
+                information. In accordance with local law, your controls and
+                choices may include:
+                </p>
+
+                <p>
+                    </p><ul>
+
+                        <li>You may correct, update and delete your registration account</li>
+
+                         <li>You may change your choices for subscriptions, newsletters and alerts</li>
+
+                         <li>You may choose whether to receive from us offers and promotions for our products and services, or products and services that we think may be of interest to you</li>
+
+                         <li>You may choose whether we share your&nbsp;personal information&nbsp;with other companies so they can send you offers and promotions about their products and services</li>
+
+                         <li>You may choose whether to receive targeted advertising from many ad networks, data exchanges, marketing analytics and other service providers&nbsp;here</li>
+
+                         <li>You may request access to the personal information we hold about you and that we amend or delete it and we request third parties with whom we have shared the information do the same</li>
+                        <li>You may exercise your controls and choices, or request access to your personal information, by contacting&nbsp;Guest Services, or following instructions provided in communications sent to you. Please be aware that, if you do not allow us to collect personal information from you, we may not be able to deliver certain products and services to you, and some of our services may not be able to take account of your interests and preferences. If you have questions regarding the specific personal information about you that we process or retain, please contact&nbsp;Guest Services.</li>
+                    </ul>
+                <p></p>
+
+
+                <h3>6. Children’s Privacy</h3>
+
+                <p>We recognize the need to provide further privacy protections
+                with respect to&nbsp;personal information&nbsp;we may collect
+                from&nbsp;children&nbsp;on our sites and&nbsp;applications. Some of the
+                features on our sites and applications are age-gated so that
+                they are not available for use by children, and we do not
+                knowingly collect personal information from children in
+                connection with those features. When we intend to collect
+                personal information from children, we take additional steps to
+                protect children’s privacy, including:
+                </p>
+                <p>
+                </p><ul>
+                    <li>Notifying&nbsp;parents&nbsp;about our information practices with regard to children, including the types of personal information we may collect from children, the uses to which we may put that information, and whether and with whom we may share that information</li>
+
+                    <li>In accordance with applicable law, obtaining consent from parents for the collection of personal information from their children, or for sending information about our products and services directly to their children</li>
+
+                    <li>Limiting our collection of personal information from children to no more than is reasonably necessary to participate in an online activity</li>
+
+                    <li>Giving parents access or the ability to request access to personal information we have collected from their children and the ability to request that the personal information be changed or deleted</li>
+                </ul>
+
+                <h3>7. Data Security and Integrity</h3>
+
+                <p>The security, integrity and confidentiality of your
+                information are extremely important to us. We have
+                implemented technical, administrative and physical security
+                measures that are designed to protect guest information
+                from unauthorized access, disclosure, use and modification.
+                From time to time, we review our security procedures to
+                consider appropriate new technology and methods. Please be
+                aware though that, despite our best efforts, no security
+                measures are perfect or impenetrable.
+                </p>
+
+                <h3>8. Data Transfers, Storage and Processing Globally</h3>
+
+                <p>We operate globally and may transfer your&nbsp;personal
+                information&nbsp;to individual companies of&nbsp;The Marvel
+                Experience Tour in locations around the world for the
+                purposes described in this privacy policy. Wherever your
+                personal information is transferred, stored or processed by
+                us, we will take reasonable steps to safeguard the privacy
+                of your personal information.  Additionally, when using or
+                disclosing personal information transferred from the
+                European Union, we abide by the Safe Harbor Principles as
+                set forth by the U.S. Department of Commerce, use standard
+                contract clauses approved by the European Commission, adopt
+                other means under European Union law for ensuring adequate
+                safeguards, or obtain your consent. We also apply the
+                substantive requirements of the Safe Harbor Principles when
+                transferring personal information from Australia.</p>
+
+                <h3>9. Changes to this Privacy Policy</h3>
+
+                <p>From time to time, we may change this privacy policy to
+                accommodate new technologies, industry practices,
+                regulatory requirements or for other purposes. We will
+                provide&nbsp;notice&nbsp;to you if these changes are material and,
+                where required by applicable law, we will obtain your
+                consent.</p>
+
+                <h3>10. Comments and Questions</h3>
+
+                <p>If you have a comment or question about this privacy
+                policy, please contact&nbsp;Guest Services. Our sites
+                and&nbsp;applications&nbsp;may contain links to other sites not owned
+                or controlled by us and we are not responsible for the
+                privacy practices of those sites. We encourage you to be
+                aware when you leave our sites or applications and to read
+                the privacy policies of other sites that may collect
+                your&nbsp;personal information.</p>
+
+                <p>Notice to California Residents:&nbsp;If you are a California
+                resident, California Civil Code Section 1798.83 permits you
+                to request information regarding the disclosure of your
+                personal information by certain&nbsp;members&nbsp;of The Marvel
+                Experience Tour to third parties for the third parties’
+                direct marketing purposes. With respect to these&nbsp;entities,
+                this privacy policy applies only to their activities within
+                the State of California. To make such a request, please
+                send an email to&nbsp;support@themarvelexperiencetour.com&nbsp;or
+                write us:</p>
+
+                <p>
+                CA Privacy Rights The Marvel Experience Tour<br>
+                ADDRESS<br>
+                ADDRESS<br>
+                </p>
+
+                <p>In your request, please specify the member of The Marvel
+                Experience Tour to which your request pertains. If no
+                member is specified, we will treat your request as a
+                general request.
+                </p>
+
+
+                <h3>Definitions</h3>
+
+                <p>Aggregate Information.&nbsp;Aggregate information means
+                information about groups or categories of guests, which
+                does not identify and cannot reasonably be used to identify
+                an individual guest.</p>
+
+                <p>Anonymous Information.&nbsp;Anonymous information means
+                information that does not directly or indirectly identify,
+                and cannot reasonably be used to identify, an individual
+                guest.</p>
+
+                <p>Application.&nbsp;Application means a program or service
+                operated by us (or on our behalf) that may be displayed on
+                various online, mobile or other platforms and environments,
+                including those operated by third parties, which permits us
+                to interact directly with our guests.
+                </p>
+
+                <p>Children.&nbsp;Children means individuals who we have
+                identified are not of legal age to consent to the
+                collection and processing of their personal information. In
+                the United States and Latin America, the term “children”
+                refers to individuals under 13 years of age.
+                </p>
+
+                <p>Data Controller.&nbsp;The data controller is the subsidiary
+                or affiliated entity of The Marvel Experience Tour that is
+                responsible for the personal information collected from
+                sites and applications, as follows:</p>
+
+                <p>Hero Ventures<br>
+                The Marvel Experience Tour<br>
+                ADDRESS<br>
+                ADDRESS<br>
+                support@themarvelexperiencetour.com
+                </p>
+
+                <p>Data Processor.&nbsp;A data processor is a person or entity
+                that processes personal information on behalf of a data
+                controller (or data controllers) and is permitted to
+                perform data processing only as directed by the data
+                controller(s).</p>
+
+
+                <p>IP Address.&nbsp;An IP address is associated with the access
+                point through which you enter the Internet, and is
+                typically controlled by your Internet Service Provider
+                (ISP), your company, or your university. We may use IP
+                addresses to collect information regarding the frequency
+                with which our guests visit various parts of our sites and
+                applications, and we may combine IP addresses with personal
+                information.</p>
+
+                <p>Member.&nbsp;Member means a subsidiary or affiliated entity
+                that is part of The Marvel Experience Tour.</p>
+
+                <p>Notice.&nbsp;Notice may be by email to you at the last email
+                address you provided us, by posting notice of such changes
+                on our sites and applications, or by other means,
+                consistent with applicable law.</p>
+
+                <p>Parents.&nbsp;Parents means a parent or legal guardian.</p>
+
+                <p>Personal information.&nbsp;Personal information means
+                information that identifies (whether directly or
+                indirectly) a particular individual, such as the
+                individual’s name, postal address, email address and
+                telephone number. When anonymous information is directly or
+                indirectly associated with personal information, this
+                anonymous information also is treated as personal
+                information.</p>
+
+                <p>Public Forums.&nbsp;Our sites and applications may offer
+                message boards, conversation pages, blogs, chat rooms,
+                social community environments, profile pages, and other
+                forums that do not have a restricted audience. If you
+                provide personal information when you use any of these
+                features, that personal information may be publicly posted
+                and otherwise disclosed without limitation as to its use by
+                us or by a third party. To request removal of your personal
+                information from a public forum on one of our sites or
+                applications, please contact&nbsp;Guest Services.</p>
+
+                <p>The Marvel Experience Tour.&nbsp;The Marvel Experience Tour
+                refers to Marvel, The Walt Disney Company, Hero Ventures,
+                and its subsidiary and affiliated entities, which offer
+                their products and services under various brand names.
+                These companies engage in a number of businesses, including
+                theme parks and travel, motion pictures and television,
+                publishing, consumer products and interactive services. </p>
+
+                <p>Guest Services Contact Information</p>
+
+                <p>
+                United States of America:<br>
+                Guest Services<br>
+                The Marvel Experience Tour<br>
+                ADDRESS<br>
+                ADDRESS<br>
+                United States of America<br>
+                </p>
+
+                <p>Guest Services</p>
+
+                <p>For questions related to children’s privacy, you may also telephone Guest Services at (800) 555-5555.</p>
+            </div>
+
+            <div class="footer">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+</div>
+<!-- endof toc -->
     </div>
   </div>
 
@@ -720,7 +1087,7 @@ window.selectedSpecies = "";
   <div class="footer_buttons_container">
     <a class="simple_button active" data-ember-action="602">PRIVACY POLICY</a>
     <a class="simple_button active" data-ember-action="603">TERMS OF USE</a>
-    <a href="http://themarvelexperiencetour.com/" target="_blank" class="simple_button active">BACK TO TOUR</a>
+    <a href="http://themarvelexperiencetour.com/" target="_blank" class="simple_button active">HOME PAGE</a>
   </div>
 
 
@@ -751,9 +1118,10 @@ window.selectedSpecies = "";
 
 <!-- <script src="dist/build/js/main.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
-<script src="dist/build/js/ajaxupload.js"></script>
+<script type="text/javascript" src="dist/build/js/simpleUpload.min.js"></script>
 <script src="dist/build/js/app.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script> -->
+
 
 <!-- <div id="testdiv" style="height: 1in; left: -100%; position: absolute; top: -100%; width: 1in;"></div> -->
 <!-- <script type="text/javascript">

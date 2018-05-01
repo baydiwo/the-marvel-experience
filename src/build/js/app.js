@@ -195,7 +195,7 @@ $(document).ready(function(){
       $(".select_hero a").removeClass("selected");
     }
     else {
-      $(this).addClass("selected");
+      // $(this).addClass("selected");
     }
 
     var id = $(this).data('ember-action');

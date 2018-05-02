@@ -68,8 +68,8 @@ $(document).ready(function(){
         } else if ($("#LastName").val() === ""){
           $("#LastName").addClass("error");
           errorsStep2 = true;
-        } else if ($("#height").val() === ""){
-          $("#height").addClass("error");
+        } else if ($("#Height").val() === ""){
+          $("#Height").addClass("error");
           errorsStep2 = true;
         } else if ($("#ember751").val() === ""){
           $("#ember751").addClass("error");
@@ -256,7 +256,7 @@ $(document).ready(function(){
       $("#selectedGender").attr("src", "/static/images/gender/" + theId.id + ".jpg");
     }
     if (type === "species") {
-      var theId = _.find(window.AVAILABLE_GENDERS, ['id', id]);
+      var theId = _.find(window.AVAILABLE_SPECIES, ['id', id]);
       window.selectedSpecies = theId.label;
       $("#selectedSpecies").attr("src", "/static/images/species/" + theId.id + ".jpg");
     }
@@ -320,7 +320,7 @@ $(document).ready(function(){
         $('#userPictureLocal').attr('src', window.localPicture);
         $("#userFirstName").append(jQuery("#FirstName").val());
         $("#userLastName").append(jQuery("#LastName").val());
-        $("#userHeight").append(jQuery("#FirstName").val() + "cm");
+        $("#userHeight").append(jQuery("#Height").val());
         $("#userEyeColor").append(window.selectedEyeColor);
         $("#userGender").append(window.selectedGender);
         $("#userSpecies").append(window.selectedSpecies);

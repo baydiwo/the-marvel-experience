@@ -152,6 +152,8 @@ window.selectedGender = "";
 window.selectedSpecies = "";
 window.selectedHero = "";
 window.photoKey = "";
+window.birthDay = "";
+window.localPicture = "";
 </script>
 </head>
 
@@ -263,9 +265,9 @@ window.photoKey = "";
                   <label for="Password">PASSWORD</label><input id="Password" class="ember-view ember-text-field" placeholder="Password" tabindex="2" type="password" name="Password
                   " autocomplete="off" required="">
                   <label for="ConfirmPassword">CONFIRM PASSWORD</label><input id="ConfirmPassword" class="ember-view ember-text-field" placeholder="Confirm Password" tabindex="3" type="password
-                  " name="ConfirmPassword" autocomplete="off" required="">
-                  <label for="BirthDate">BIRTHDATE</label><input id="BirthDate" class="ember-view ember-text-field birthDate" placeholder="DD/MM/YYYY" tabindex="5" type="datetime" name="BirthDate
-                  " autocomplete="off" required="">
+                  " name="ConfirmPassword" autocomplete="off" required=""> <br>
+                  <label for="BirthDate" style="width: 125px;">BIRTHDATE</label>
+                  <input id="BirthDate" class="ember-view ember-text-field" placeholder="BirthDate" tabindex="2" type="date" name="BirthDate" autocomplete="off" required="">
 
                 </div>
 
@@ -325,9 +327,10 @@ window.photoKey = "";
               <div class="row"><label>BIRTHDATE</label></div>
               <div class="row">
                 <div class="cell">
-                  <input id="ember751" class="ember-view ember-text-field birthDate" placeholder="YYYY" tabindex="3" type="text" name="birth_date_year" autocomplete="off" required="">
+                  <input id="BirthDateUser" class="ember-view ember-text-field" placeholder="BirthDate" tabindex="2" type="date" name="BirthDate" autocomplete="off" required=""  style="width: 108px;">
+                  <!-- <input id="ember751" class="ember-view ember-text-field birthDate" placeholder="YYYY" tabindex="3" type="text" name="birth_date_year" autocomplete="off" required="">
                   <input id="ember752" class="ember-view ember-text-field birthDate" placeholder="MM" tabindex="4" type="text" name="birth_date_month" autocomplete="off" required="">
-                  <input id="ember753" class="ember-view ember-text-field birthDate" placeholder="DD" tabindex="5" type="text" name="birth_date_day" autocomplete="off" required="">
+                  <input id="ember753" class="ember-view ember-text-field birthDate" placeholder="DD" tabindex="5" type="text" name="birth_date_day" autocomplete="off" required=""> -->
                 </div>
               </div>
             </div>
@@ -335,7 +338,7 @@ window.photoKey = "";
               <div class="row"><label>HEIGHT</label><label>EYE COLOR</label><label>GENDER</label><label>SPECIES</label></div>
               <div class="row">
                 <div class="cell">
-                  <input id="height" class="ember-view ember-text-field" placeholder="CM" tabindex="6" type="text" name="height_cm" autocomplete="off" required="">
+                  <input id="height" class="ember-view ember-text-field" placeholder="CM" tabindex="6" type="number" name="height" autocomplete="off" required="">
                 </div>
                 <div class="cell">
                   <div id="ember762" class="ember-view" tabindex="8">    <div class="graphic_select">
@@ -918,7 +921,20 @@ window.photoKey = "";
         <div class="title red">YOUR NEW</div><div class="title white">ID BADGE IS READY</div>
       </div>
 
-      <div id="shield_id_preview"><img width="100%" height="100%" src="https://recruits.themarvelexperiencetour.com/shield_id/5960-989917.png?size=small&amp;r=0.8528495890024688"></div>
+      <div id="shield_id_preview">
+        <div class="imageBorder">
+          <img id="userPictureLocal" src="#" />
+        </div>
+        <span id="userFirstName"></span>
+        <span id="userLastName"></span>
+        <span id="userHeight"></span>
+        <span id="userEyeColor"></span>
+        <span id="userGender"></span>
+        <span id="userSpecies"></span>
+        <span id="userLocation"></span>
+        <span id="userZip"></span>
+      </div>
+
 
       <div style="margin-top: 10px; width: 290px; text-align: center;">
         <a href="#" class="nav_button left active" data-ember-action="895">PRINT</a>
@@ -1954,7 +1970,7 @@ window.photoKey = "";
 
 <!-- <script src="dist/build/js/main.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
-<script type="text/javascript" src="dist/build/js/simpleUpload.min.js"></script>
+<!-- <script type="text/javascript" src="dist/build/js/simpleUpload.min.js"></script> -->
 <script src="dist/build/js/app.js"></script>
 
 

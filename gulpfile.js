@@ -11,7 +11,7 @@ var uglify     = require('gulp-uglify');
 // compile sass
 gulp.task('sass', function() {
     gulp.src('src/sass/*.scss')
-        .pipe(sass())
+        .pipe(sass({outputStyle: 'compressed'}))
         .pipe(gulp.dest('dist/css'))
         .pipe(reload({ stream:true }));
 });

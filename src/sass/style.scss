@@ -939,7 +939,7 @@ div.popup div.content:only-child {
     color: #d2edff;
     display: inline-block;
     letter-spacing: 1px;
-    min-width: 105px;
+    min-width: 100px;
     text-align: right;
     margin-right: 5px;
     font-size: 17px;
@@ -1078,7 +1078,7 @@ div.popup div.content:only-child {
 
 .popup input[name="eyeColor"],
 .popup input[name="height"] {
-    width: 70px;
+    width: 39px;
 }
 
 .popup_content {
@@ -1176,6 +1176,73 @@ div.popup div.content:only-child {
 #shield_id_preview {
     width: 305px;
     height: 192px;
+    background-image: url("../images/shield_card_background.png");
+    position: relative;
+
+    #imageBorder {
+        left: 20px;
+        position: absolute;
+        top: 66px;
+        width: 90px;
+        height: 100px;
+
+        #userPictureLocal {
+            width:100%;
+            heiht:auto;
+        }
+    }
+    span {
+        position: absolute;
+        color: #000;
+        font-family: $font-bebas;
+        font-size: 14px;
+
+        &#userFirstName {
+            left: 116px;
+            top: 64px;
+        }
+
+        &#userLastName {
+            top: 77px;
+            left: 116px;
+        }
+
+        &#userHeight {
+            top: 101px;
+            left: 116px;
+        }
+
+        &#userHeight {
+            top: 101px;
+            left: 116px;
+        }
+
+        &#userEyeColor {
+            top: 101px;
+            left: 165px;
+        }
+
+        &#userGender {
+            top: 125px;
+            left: 116px;
+        }
+
+        &#userSpecies {
+            top: 125px;
+            left: 165px;
+        }
+
+        &#userLocation {
+            top: 150px;
+            left: 116px;
+        }
+
+        &#userZip {
+            top: 150px;
+            left: 165px;
+        }
+
+    }
 }
 
 #shield_id_preview canvas {
@@ -1853,7 +1920,7 @@ div.popup div.content:only-child {
     transition:all ease .4s;
 
     #ember582 label {
-    min-width:121px
+        width:128px
     }
 }
 
@@ -1868,6 +1935,10 @@ div.popup div.content:only-child {
 
 #userPicture {
     height:100%;
+    position: absolute;
+    left:50%;
+    top:50%;
+    display: none;
 }
 
 #overlay {

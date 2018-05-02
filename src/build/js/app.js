@@ -68,8 +68,8 @@ $(document).ready(function(){
         } else if ($("#LastName").val() === ""){
           $("#LastName").addClass("error");
           errorsStep2 = true;
-        } else if ($("#height").val() === ""){
-          $("#height").addClass("error");
+        } else if ($("#Height").val() === ""){
+          $("#Height").addClass("error");
           errorsStep2 = true;
         } else if ($("#ember751").val() === ""){
           $("#ember751").addClass("error");
@@ -227,14 +227,6 @@ $(document).ready(function(){
     }
   });
 
-  $("#Password").change(function() {
-    if ($("#Password").val().length < 5) {
-      $("#Password").addClass("error");
-    } else {
-      $("#Password").removeClass("error");
-    }
-  });
-
   // function to get data from selected eye
   function getSelectedItem(emberId, type) {
     $("#"+emberId+" .graphic_select_items .item").on('click',function(e) {
@@ -248,17 +240,17 @@ $(document).ready(function(){
     if (type === "eye") {
       var theId = _.find(window.AVAILABLE_EYE_COLORS, ['id', id]);
       window.selectedEyeColor = theId.label;
-      $("#selectedEyeColor").attr("src", "/static/images/eye_colors/" + theId.id + ".jpg");
+      $("#selectedEyeColor").attr("src", "http://www.ideal-works.com/themarvelexperience/wp-content/uploads/2018/05/eye_" + theId.id + ".jpg");
     }
-    if (type === "gender") {
+    else if (type === "gender") {
       var theId = _.find(window.AVAILABLE_GENDERS, ['id', id]);
       window.selectedGender = theId.label;
-      $("#selectedGender").attr("src", "/static/images/gender/" + theId.id + ".jpg");
+      $("#selectedGender").attr("src", "http://www.ideal-works.com/themarvelexperience/wp-content/uploads/2018/05/gender_" + theId.id + ".jpg");
     }
-    if (type === "species") {
+    else if (type === "species") {
       var theId = _.find(window.AVAILABLE_GENDERS, ['id', id]);
       window.selectedSpecies = theId.label;
-      $("#selectedSpecies").attr("src", "/static/images/species/" + theId.id + ".jpg");
+      $("#selectedSpecies").attr("src", "http://www.ideal-works.com/themarvelexperience/wp-content/uploads/2018/05/species_" + theId.id + ".jpg");
     }
   }
 
@@ -309,7 +301,8 @@ $(document).ready(function(){
 
         $("#ember849").css("display", "none");
         $("#ember894").css("display", "block");
-        $('#bigHero').css('background-image', 'url(/static/images/heroes/characters/' + window.selectedHero + '.png)');
+
+        $('#bigHero').css('background-image', 'url(http://www.ideal-works.com/themarvelexperience/wp-content/uploads/2018/05/char_' + window.selectedHero + '.png)');
         $("#nav_button_right").removeClass("active");
         $("#level").text("1");
         $("#xp").text("100");

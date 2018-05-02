@@ -248,7 +248,7 @@ $(document).ready(function(){
       $("#selectedGender").attr("src", "http://www.ideal-works.com/themarvelexperience/wp-content/uploads/2018/05/gender_" + theId.id + ".jpg");
     }
     else if (type === "species") {
-      var theId = _.find(window.AVAILABLE_GENDERS, ['id', id]);
+      var theId = _.find(window.AVAILABLE_SPECIES, ['id', id]);
       window.selectedSpecies = theId.label;
       $("#selectedSpecies").attr("src", "http://www.ideal-works.com/themarvelexperience/wp-content/uploads/2018/05/species_" + theId.id + ".jpg");
     }

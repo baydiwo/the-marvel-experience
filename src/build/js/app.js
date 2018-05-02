@@ -317,10 +317,12 @@ $(document).ready(function(){
         $('#overlay').css("display", "none");
 
         // append input data to DOM
-        $('#userPictureLocal').attr('src', window.localPicture);
+        if (window.localPicture !== "") {
+          $('#userPictureLocal').attr('src', window.localPicture);
+        }
         $("#userFirstName").append(jQuery("#FirstName").val());
         $("#userLastName").append(jQuery("#LastName").val());
-        $("#userHeight").append(jQuery("#Height").val());
+        $("#userHeight").append(jQuery("#Height").val()+"cm");
         $("#userEyeColor").append(window.selectedEyeColor);
         $("#userGender").append(window.selectedGender);
         $("#userSpecies").append(window.selectedSpecies);

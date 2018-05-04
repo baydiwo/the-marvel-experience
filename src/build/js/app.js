@@ -331,8 +331,7 @@ $(document).ready(function(){
 
       },
       error: function (request, error) {
-        console.log(arguments);
-        alert(" Can't do because: " + error);
+        alert(" Can't do because: " + request.responseJSON[0]);
         $('#overlay').css("display", "none");
       },
     });

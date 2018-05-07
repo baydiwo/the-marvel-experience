@@ -329,9 +329,11 @@ $(document).ready(function(){
         $("#userLocation").append(jQuery("#IssueLocation").val());
         $("#userZip").append(jQuery("#Zipcode").val());
 
+        getUserTicketPhoto(window.photoKey);
+
       },
       error: function (request, error) {
-        alert(" Can't do because: " + request.responseJSON[0]);
+        alert(" Cannot submit your data because: " + request.responseJSON[0]);
         $('#overlay').css("display", "none");
       },
     });
@@ -407,8 +409,15 @@ $(document).ready(function(){
   $("#upload_photo_holder").on('click',function (e) {
       $("#fileUpload").click();
       e.preventDefault();
-  })
+  });
 
+  function getUserTicketPhoto(key) {
+    var url = "https://tickets.smartag.us/api/TicketPhoto/"+key
+    $.get( url, function( data ) {
+      window.userShieldCard = data;
+      $('#shield_id_share').attr('data-href', data);
+    });
+  };
 
 });
 

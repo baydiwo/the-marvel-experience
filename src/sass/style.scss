@@ -1176,8 +1176,16 @@ div.popup div.content:only-child {
 #shield_id_preview {
     width: 305px;
     height: 192px;
-    background-image: url("../images/shield_card_background.png");
+    // background-image: url("../images/shield_card_background.png");
     position: relative;
+
+    .shield_card img{
+        position: absolute;
+        left:0;
+        top:0;
+        width: 305px;
+        height: 192px;
+    }
 
     .imageBorder {
         left: 20px;

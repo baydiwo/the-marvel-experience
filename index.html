@@ -162,10 +162,21 @@
         window.photoKey = "";
         window.birthDay = "";
         window.localPicture = "";
+        window.userShieldCard = "";
     </script>
 </head>
 
 <body class="game" style="" cz-shortcut-listen="true">
+    <!-- facebook share -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- endof facebook share -->
 
     <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
     <clipPath id="heroIconClip">
@@ -942,9 +953,13 @@
                                                     <div class="form_label right">
                                                         <div class="title red">YOUR NEW</div>
                                                         <div class="title white">ID BADGE IS READY</div>
+                                                        <div id="previewImage"></div>
                                                     </div>
 
                                                     <div id="shield_id_preview">
+                                                        <div class="shield_card">
+                                                            <img src="dist/images/shield_card_background.png" alt="">
+                                                        </div>
                                                         <div class="imageBorder">
                                                             <img id="userPictureLocal" src="dist/images/defaultpic.png" />
                                                         </div>
@@ -960,9 +975,13 @@
 
 
                                                     <div style="margin-top: 10px; width: 430px; text-align: center; position: relative; margin-left: -110px;">
-                                                        <a href="#" class="nav_button left active" data-ember-action="895">PRINT</a>
-                                                        <a href="#" class="nav_button right active" data-ember-action="895" style="margin-right: 30px;">SHARE</a>
-                                                        <a href="https://recruits.themarvelexperiencetour.com/shield_id/5960-989917.png?size=big&amp;r=0.7483599463665818" id="download_id_badge" class="nav_button right active" download="shield_id_badge.png">DOWNLOAD</a>
+                                                        <a onclick="printDiv();" class="nav_button left active" data-ember-action="895">PRINT</a>
+
+                                                        <div class="fb-share-button" id="shield_id_share" data-href="http://smartag.io" data-layout="button" data-size="small" data-mobile-iframe="true" style="display: inline-block;">
+                                                            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsmartag.io%2F&amp;src=sdkpreparse" class="nav_button right active fb-xfbml-parse-ignore" style="margin-right: 30px;">Share</a>
+                                                        </div>
+
+                                                        <a id="download_id_badge" class="nav_button right activenav_button right active" download="shield_id_badge.png">DOWNLOAD</a>
                                                     </div>
                                                     <p style="font-size: 15px; color: #e8e6e7; padding-top: 10px;" class="font-euro">
                                                         In the meantime, download your SHIELD recruit ID badge and carry it proudly!
@@ -1302,32 +1321,54 @@ Email: info@heroexperience.co.th</p>
     <!-- <script src="dist/build/js/main.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
     <!-- <script type="text/javascript" src="dist/build/js/simpleUpload.min.js"></script> -->
+    <script type="text/javascript" src="dist/build/js/printThis.js"></script>
+    <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="dist/build/js/app.js"></script>
     <script>
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-          "July", "August", "September", "October", "November", "December"
-        ];
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
 
-        const d = new Date();
-        $(".month_day").append(monthNames[d.getMonth()] + " " + d.getDate());
+    const d = new Date();
+    $(".month_day").append(monthNames[d.getMonth()] + " " + d.getDate());
 
-        $( function() {
-            $( ".datepicker" ).datepicker();
-          } );
+    $( function() {
+        $( ".datepicker" ).datepicker();
+      } );
+
+    function printDiv()
+    {
+        $("#shield_id_preview").printThis();
+    }
+
+    // var element = $("#shield_id_preview"); // global variable
+    // var getCanvas; // global variable
+
+    // $("#share_id_badge").on('click', function () {
+
+    //     html2canvas(document.querySelector("#shield_id_preview") , {width: 305, scrollX:50}).then(canvas => {
+    //     document.getElementById('previewImage').appendChild(canvas)
+    //     });
+    //      // html2canvas(element, {
+    //      // onrendered: function (canvas) {
+    //      //        $("#previewImage").append(canvas);
+    //      //        getCanvas = canvas;
+    //      //     }
+    //      // });
+    // });
+
+    // $("#download_id_badge").on('click', function () {
+    //     var imgageData = getCanvas.toDataURL("image/png");
+    //     // Now browser starts downloading it instead of just showing it
+    //     var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+    //     $("#download_id_badge").attr("download", "your_pic_name.png").attr("href", newData);
+    // });
+    // html2canvas(document.querySelector("#shield_id_preview")).then(canvas => {
+    //     document.body.appendChild(canvas)
+    // });
+
     </script>
 
-
-    <!-- <div id="testdiv" style="height: 1in; left: -100%; position: absolute; top: -100%; width: 1in;"></div> -->
-    <!-- <script type="text/javascript">
-  $(window).load(function() {
-    window.dpi_x = document.getElementById('testdiv').offsetWidth;
-    window.dpi_y = document.getElementById('testdiv').offsetHeight;
-  });
-</script> -->
-
-
-
-
 </body>
-
 </html>

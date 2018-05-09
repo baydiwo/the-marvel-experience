@@ -2,6 +2,8 @@
 @import url("../fonts/code39azalea/stylesheet.css");
 @import url("../fonts/fre3of9x/stylesheet.css");
 
+@import "datepicker.scss";
+
 $font-euro : "Eurostile", "Verdana", Arial;
 $font-bebas : "BebasNeueRegular", "Verdana", "Arial";
 $font-fre : "Free3of9Extended";
@@ -1968,4 +1970,9 @@ div.popup div.content:only-child {
         top: 50%;
         left: 50%
     }
+}
+
+// overide
+.datepicker-panel>ul>li {
+    color:darken(#999 , 20%);
 }

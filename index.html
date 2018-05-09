@@ -292,7 +292,7 @@
                                                             <input id="ConfirmPassword" class="ember-view ember-text-field" placeholder="Confirm Password" tabindex="3" type="password" name="ConfirmPassword" autocomplete="off" required="">
 
                                                             <label for="BirthDate" style="width: 125px;">BIRTHDATE</label>
-                                                            <input id="BirthDate" class="ember-view ember-text-field datepicker" placeholder="MM/DD/YYYY" tabindex="2" type="text" name="BirthDate" autocomplete="off" required="">
+                                                            <input id="BirthDate" class="ember-view ember-text-field datepicker" placeholder="MM/DD/YYYY" tabindex="4" type="text" name="BirthDate" autocomplete="off" required="" data-toggle="datepicker">
 
                                                         </div>
 
@@ -355,7 +355,7 @@
                                                         <div class="row"><label>BIRTHDATE</label></div>
                                                         <div class="row">
                                                             <div class="cell">
-                                                                <input id="BirthDateUser" class="ember-view ember-text-field datepicker" placeholder="MM/DD/YYYY" tabindex="2" type="text" name="BirthDate" autocomplete="off" required="" style="width: 80px;">
+                                                                <input id="BirthDateUser" class="ember-view ember-text-field datepicker" placeholder="MM/DD/YYYY" tabindex="2" type="text" name="BirthDate" autocomplete="off" required="" style="width: 80px;" data-toggle="datepicker">
                                                                 <!-- <input id="ember751" class="ember-view ember-text-field birthDate" placeholder="YYYY" tabindex="3" type="text" name="birth_date_year" autocomplete="off" required="">
                   <input id="ember752" class="ember-view ember-text-field birthDate" placeholder="MM" tabindex="4" type="text" name="birth_date_month" autocomplete="off" required="">
                   <input id="ember753" class="ember-view ember-text-field birthDate" placeholder="DD" tabindex="5" type="text" name="birth_date_day" autocomplete="off" required=""> -->
@@ -1324,6 +1324,7 @@ Email: info@heroexperience.co.th</p>
     <script type="text/javascript" src="dist/build/js/printThis.js"></script>
     <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
     <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="dist/build/js/datepicker.min.js"></script>
     <script src="dist/build/js/app.js"></script>
     <script>
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -1333,9 +1334,10 @@ Email: info@heroexperience.co.th</p>
     const d = new Date();
     $(".month_day").append(monthNames[d.getMonth()] + " " + d.getDate());
 
-    $( function() {
-        $( ".datepicker" ).datepicker();
-      } );
+    // $( function() {
+    //     $( ".datepicker" ).datepicker();
+    //   } );
+    $('[data-toggle="datepicker"]').datepicker();
 
     function printDiv()
     {

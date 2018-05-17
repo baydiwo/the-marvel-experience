@@ -309,6 +309,7 @@ $(document).ready(function(){
        Zipcode: jQuery("#Zipcode").val(),
        FavoriteHero: window.selectedHero,
        photoKey: window.photoKey,
+       ExtraData:"{\"EyeColor\":\"" + window.selectedEyeColor + "\" , \"Gender\":\"" + window.selectedGender + "\" , \"Species\":\"" + window.selectedSpecies + "\" , \"Species\":\"" + window.selectedSpecies + "\" , \"Species\":\"" + window.selectedSpecies + "\" }"
       }),
       contentType:"application/json; charset=utf-8",
       dataType:"json",
@@ -391,22 +392,7 @@ $(document).ready(function(){
       reader.onload = function(e) {
         $('#userPicture').attr('src', e.target.result);
         window.localPicture = e.target.result;
-
-        $('#userPicture').css("display", "block");
-        var hWide = ($("#userPicture").width())/2; //half the image's width
-        var hTall = ($("#userPicture").height())/2; //half the image's height, etc.
-
-        // attach negative and pixel for CSS rule
-        hWide = '-' + hWide + 'px';
-        hTall = '-' + hTall + 'px';
-
-        $("#userPicture").css({
-          "margin-left" : hWide,
-          "margin-top" : hTall
-        });
-        // var picWidth = $("#userPicture").width();
-        // var margin = picWidth / 2;
-        // $("#userPicture").css("margin-left", "-"+margin+"px");
+        $('#userPicture').centerImage();
       }
 
       reader.readAsDataURL(input.files[0]);

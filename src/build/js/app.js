@@ -301,15 +301,15 @@ $(document).ready(function(){
        FirstName: jQuery("#FirstName").val(),
        LastName: jQuery("#LastName").val(),
        BirthDate: userBirthday,
-       Height: jQuery("#Height").val(),
-       EyeColor: window.selectedEyeColor,
-       Gender: window.selectedGender,
-       Species: window.selectedSpecies,
-       IssueLocation: jQuery("#IssueLocation").val(),
+       // Height: jQuery("#Height").val(),
+       // EyeColor: window.selectedEyeColor,
+       // Gender: window.selectedGender,
+       // Species: window.selectedSpecies,
+       City: jQuery("#IssueLocation").val(),
        Zipcode: jQuery("#Zipcode").val(),
        FavoriteHero: window.selectedHero,
-       photoKey: window.photoKey,
-       ExtraData:"{\"EyeColor\":\"" + window.selectedEyeColor + "\" , \"Gender\":\"" + window.selectedGender + "\" , \"Species\":\"" + window.selectedSpecies + "\" , \"Species\":\"" + window.selectedSpecies + "\" , \"Species\":\"" + window.selectedSpecies + "\" }"
+       PhotoKey: window.photoKey,
+       ExtraData:"{\"EyeColor\":\"" + window.selectedEyeColor + "\" , \"Gender\":\"" + window.selectedGender + "\" , \"Species\":\"" + window.selectedSpecies + "\" , \"Height\":\"" + window.selectedSpecies + "\" , \"FavoriteHero\":\"" + window.selectedSpecies + "\" }"
       }),
       contentType:"application/json; charset=utf-8",
       dataType:"json",
@@ -327,6 +327,7 @@ $(document).ready(function(){
         // append input data to DOM
         if (window.localPicture !== "") {
           $('#userPictureLocal').attr('src', window.localPicture);
+          $('#userPictureLocal').centerImage();
         }
         $("#userFirstName").append(jQuery("#FirstName").val());
         $("#userLastName").append(jQuery("#LastName").val());

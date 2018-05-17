@@ -5,6 +5,17 @@ $(document).ready(function(){
 
    },1000);
 
+  // get url param
+  var url_string = document.URL;
+  var url = new URL(url_string);
+  var ParamFirstName = url.searchParams.get("FirstName");
+  var ParamLastName = url.searchParams.get("LastName");
+  var ParamEmail = url.searchParams.get("Email");
+  var ParamOrderConfirmation = url.searchParams.get("OrderConfirmation");
+  jQuery("#FirstName").val(ParamFirstName);
+  jQuery("#LastName").val(ParamLastName);
+  jQuery("#Email").val(ParamEmail);
+  // ?FirstName=bayu&LastName=Adi&Email=bbb@mail.com
 
   $('#nav_button_right').click(function(e) {
     e.preventDefault();
@@ -49,7 +60,7 @@ $(document).ready(function(){
         var day = ("0" + now.getDate()).slice(-2);
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-        var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+        var today = (month)+"/"+(day)+"/"+now.getFullYear() ;
 
         $("#BirthDateUser").val(today);
 
@@ -265,13 +276,9 @@ $(document).ready(function(){
 
   $(".select_hero a").on('click',function(e) {
     e.preventDefault();
-    var find = $(".select_hero").find(".selected");
-    if(find.length > 0) {
-      $(".select_hero a").removeClass("selected");
-    }
-    else {
-      $(this).addClass("selected");
-    }
+
+    $(".select_hero a").removeClass("selected");
+    $(this).addClass("selected");
 
     var id = $(this).data('ember-action');
     window.selectedHero = id;

@@ -15,6 +15,7 @@ $(document).ready(function(){
   jQuery("#FirstName").val(ParamFirstName);
   jQuery("#LastName").val(ParamLastName);
   jQuery("#Email").val(ParamEmail);
+  window.OrderConfirmation = ParamOrderConfirmation;
   // ?FirstName=bayu&LastName=Adi&Email=bbb@mail.com
 
   $('#nav_button_right').click(function(e) {
@@ -307,9 +308,8 @@ $(document).ready(function(){
        // Species: window.selectedSpecies,
        City: jQuery("#IssueLocation").val(),
        Zipcode: jQuery("#Zipcode").val(),
-       FavoriteHero: window.selectedHero,
        PhotoKey: window.photoKey,
-       ExtraData:"{\"EyeColor\":\"" + window.selectedEyeColor + "\" , \"Gender\":\"" + window.selectedGender + "\" , \"Species\":\"" + window.selectedSpecies + "\" , \"Height\":\"" + window.selectedSpecies + "\" , \"FavoriteHero\":\"" + window.selectedSpecies + "\" }"
+       ExtraData:"{\"EyeColor\":\"" + window.selectedEyeColor + "\" , \"Gender\":\"" + window.selectedGender + "\" , \"Species\":\"" + window.selectedSpecies + "\" , \"Height\":\"" + window.selectedSpecies + "\" , \"FavoriteHero\":\"" + window.selectedSpecies + "\" , \"OrderConfirmation\":\"" + window.OrderConfirmation + "\"}"
       }),
       contentType:"application/json; charset=utf-8",
       dataType:"json",

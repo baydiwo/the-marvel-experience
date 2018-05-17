@@ -313,7 +313,7 @@ $(document).ready(function(){
       }),
       contentType:"application/json; charset=utf-8",
       dataType:"json",
-      success: function(){
+      success: function(data){
 
         $("#ember849").css("display", "none");
         $("#ember894").css("display", "block");
@@ -338,7 +338,10 @@ $(document).ready(function(){
         $("#userLocation").append(jQuery("#IssueLocation").val());
         $("#userZip").append(jQuery("#Zipcode").val());
 
-        getUserTicketPhoto(window.photoKey);
+        // getUserTicketPhoto(window.photoKey);
+        console.log(data.photoPath);
+        $('#download_id_badge').attr('href', data.photoPath);
+        $('#shield_id_share').attr('data-href', data.photoPath);
 
       },
       error: function (request, error) {

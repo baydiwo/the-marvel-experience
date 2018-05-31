@@ -1,0 +1,1376 @@
+<html lang="zh-Hans">
+
+<head>
+    <title>The Marvel Experience</title>
+
+    <link rel="stylesheet" href="../dist/css/style.css" type="text/css">
+    <style type="text/css" media="screen">
+        #height {
+            width: 40px;
+        }
+    </style>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Jura:400,600,500" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        // SYSTEM CONSTANTS
+        window.SYSTEM_NAME_NICE = "The Marvel Experience";
+        window.SYSTEM_NAME = "the_marvel_experience";
+        window.SYSTEM_URL = "https://recruits.themarvelexperiencetour.com";
+        window.MEDIA_URL = "https://recruits.themarvelexperiencetour.com";
+        window.JS_BUILD = "1.025";
+        window.FB_APP_ID = "646104345443777";
+        window.AVAILABLE_HEROES = [{
+            "fullName": "Spider-Man",
+            "id": 1,
+            "internalName": "spiderman"
+        }, {
+            "fullName": "Ironman",
+            "id": 2,
+            "internalName": "ironman"
+        }, {
+            "fullName": "Thor",
+            "id": 3,
+            "internalName": "thor"
+        }, {
+            "fullName": "Hulk",
+            "id": 4,
+            "internalName": "hulk"
+        }, {
+            "fullName": "Wolverine",
+            "id": 5,
+            "internalName": "wolverine"
+        }, {
+            "fullName": "Captain America",
+            "id": 6,
+            "internalName": "captain_america"
+        }, {
+            "fullName": "Black Widow",
+            "id": 7,
+            "internalName": "black_widow"
+        }, {
+            "fullName": "Nick Fury",
+            "id": 8,
+            "internalName": "nick_fury"
+        }, {
+            "fullName": "Black Panther",
+            "id": 9,
+            "internalName": "black_panther"
+        }, {
+            "fullName": "She-Hulk",
+            "id": 10,
+            "internalName": "she_hulk"
+        }, {
+            "fullName": "Vision",
+            "id": 11,
+            "internalName": "vision"
+        }, {
+            "fullName": "Iron Fist",
+            "id": 12,
+            "internalName": "iron_fist"
+        }];
+        window.AVAILABLE_EYE_COLORS = [{
+            "id": 1,
+            "label": "Black"
+        }, {
+            "id": 2,
+            "label": "Blue"
+        }, {
+            "id": 3,
+            "label": "Brown"
+        }, {
+            "id": 4,
+            "label": "Grey"
+        }, {
+            "id": 5,
+            "label": "Green"
+        }, {
+            "id": 6,
+            "label": "Hazel"
+        }, {
+            "id": 7,
+            "label": "Red"
+        }, {
+            "id": 8,
+            "label": "Pink"
+        }, {
+            "id": 9,
+            "label": "Yellow"
+        }, {
+            "id": 10,
+            "label": "Orange"
+        }, {
+            "id": 11,
+            "label": "Purple"
+        }];
+        window.AVAILABLE_SPECIES = [{
+            "id": 1,
+            "label": "Human"
+        }, {
+            "id": 2,
+            "label": "Android"
+        }, {
+            "id": 3,
+            "label": "Superhuman"
+        }, {
+            "id": 4,
+            "label": "Animal"
+        }, {
+            "id": 5,
+            "label": "Alien"
+        }, {
+            "id": 6,
+            "label": "Unknown"
+        }];
+        window.AVAILABLE_GENDERS = [{
+            "id": 1,
+            "label": "Male"
+        }, {
+            "id": 2,
+            "label": "Female"
+        }, {
+            "id": 3,
+            "label": "Other"
+        }];
+        window.PLAYER_STATUSES = {
+            "0": "RECRUIT",
+            "1": "TRAINEE"
+        };
+        window.INITIAL_USER_DATA = JSON.parse('{}');
+        window.ALL_USER_DATA = JSON.parse('[]');
+
+        window.FLAG_NEEDS_PROFILE = 1 << 1;
+        window.FLAG_COPPA_REQUIRED = 1 << 2;
+        window.FLAG_COPPA_APPROVED = 1 << 3;
+        window.FLAG_AVATAR_NOT_APPROVED = 1 << 4;
+        window.FLAG_AVATAR_REJECTED = 1 << 5;
+        window.FLAG_RECEIVE_PROMOTIONS = 1 << 6;
+
+        window.AVATAR_NONE = 0;
+        window.AVATAR_LOCAL = 1;
+        window.AVATAR_FACEBOOK = 2;
+        window.CURRENT_PAGE = 1;
+
+        // temporary data for custom select
+        window.selectedEyeColor = "";
+        window.selectedGender = "";
+        window.selectedSpecies = "";
+        window.selectedHero = "";
+        window.photoKey = "";
+        window.birthDay = "";
+        window.localPicture = "";
+        window.userShieldCard = "";
+        window.OrderConfirmation = "";
+    </script>
+</head>
+
+<body class="game" style="" cz-shortcut-listen="true">
+    <!-- facebook share -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- endof facebook share -->
+
+    <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <clipPath id="heroIconClip">
+      <polygon points="72 0,81 8,105 8,105 98,98 105,11 105,0 94,0 0">
+      </polygon>
+    </clipPath>
+  </svg>
+
+    <div id="fb-root"></div>
+
+    <!-- overlay loading -->
+    <div id="overlay">
+        <div class="center"><img src="../dist/images/loading.gif"></div>
+    </div>
+
+    <section>
+        <div class="page">
+            <div class="background"></div>
+            <div id="appcontainer" class="ember-application">
+                <div id="ember563" class="ember-view">
+                    <div id="ember573" class="ember-view" style="opacity: 1;">
+                        <div class="outer_elements">
+                            <div class="top_left"></div>
+                            <div class="top_middle"></div>
+                            <div class="top_right"></div>
+                            <div class="bottom_left"></div>
+                            <div class="bottom_right"></div>
+                        </div>
+
+                        <div class="current_date">
+                            <div class="month_day"></div>
+                            <div class="year">2018</div>
+                        </div>
+
+                        <!-- <div class="legal_line">© 2015 MARVEL | PRODUCED BY
+<a href="http://www.hero-ventures.com/" target="_blank"><img class="legal_logo" src="static/images/hv_logo.png"></a>
+</div> -->
+
+                        <div id="signup_popup" class="popup">
+
+
+                            <div class="header">
+                                <div class="image_1"></div>
+                                <div class="image_2"></div>
+                                <div class="image_3"></div>
+                                <div class="image_4"></div>
+                                <div class="image_5"></div>
+                                <div class="logo"></div>
+                                <div class="window_title">RECRUIT EVIDENCE</div>
+                                <div class="title_big">特工注册</div>
+                                <div class="title_small">状态：新兵</div>
+                            </div>
+                            <div class="progress_bar">
+                                <div class="markers">
+                                    <div id="menubar1" class="marker step_0 active" data-bindattr-591="591"></div>
+                                    <div id="menubar2" class="marker step_1" data-bindattr-592="592"></div>
+                                    <div id="menubar3" class="marker step_2" data-bindattr-593="593"></div>
+                                    <div id="menubar4" class="marker step_3" data-bindattr-594="594"></div>
+                                </div>
+                            </div>
+
+                            <div class="user_status">
+                                <span class="label">XP: </span><span class="value" style="min-width: 35px;" id="xp">50</span>
+                                <span class="label">LEVEL: </span><span class="value" style="width: 20px;" id="level">1</span>
+                            </div>
+
+                            <div class="border_left">
+                                <div class="image_1"></div>
+                                <div class="image_2"></div>
+                            </div>
+                            <div class="content_logo_background"></div>
+                            <div class="content_background"></div>
+
+                            <div class="content_container">
+                                <div class="content">
+                                    <form data-ember-action="642" name="registerform" id="registerform" class="create_user">
+                                        <div id="ember582" class="ember-view" style="opacity: 1;">
+                                            <!-- section 1 -->
+                                            <div class="popup_content">
+                                                <div class="image" style="width: 367px;">
+                                                    <img src="../dist/images/nick_fury.jpg">
+                                                    <div class="image_message">
+                                                        <p>
+                                                            <span class="important">尼克·弗瑞：</span>我们发现了违法行为，正在锁定威胁来源。确定事态严重级别之前，我们需要展开新人训练，增强神盾局的战力。立即开始您的训练。
+                                                        </p>
+                                                    </div>
+                                                    <div style="padding-top: 25px; font-size: 20px;">
+                                                        <a id="ember615" class="ember-view simple_button active" href="http://www.ideal-works.com/themarvelexperience">已注册？</a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="content" style="width: 280px; margin-left: 20px;">
+
+                                                    <div class="form">
+                                                        <div class="form_label right">
+                                                            <div class="title red">CREATE AN</div>
+                                                            <div class="title white">AGENT LOGIN</div>
+                                                        </div>
+
+                                                        <div class="header">
+                                                        </div>
+
+                                                        <div class="body">
+
+                                                            <label for="email">邮箱：</label>
+                                                            <input id="Email" class="ember-view ember-text-field" placeholder="邮箱" tabindex="1" type="email" name="Email" autocomplete="off" required="">
+
+                                                            <label for="Password">密码：</label>
+                                                            <input id="Password" class="ember-view ember-text-field" placeholder="密码" tabindex="2" type="password" name="Password" autocomplete="off" required="">
+
+                                                            <label for="ConfirmPassword">确认密码：</label>
+                                                            <input id="ConfirmPassword" class="ember-view ember-text-field" placeholder="确认密码" tabindex="3" type="password" name="ConfirmPassword" autocomplete="off" required="">
+
+                                                            <label for="BirthDate" style="width: 125px;">生日：</label>
+                                                            <input id="BirthDate" class="ember-view ember-text-field datepicker" placeholder="MM/DD/YYYY" tabindex="4" type="text" name="BirthDate" autocomplete="off" required="" data-toggle="datepicker">
+
+                                                        </div>
+
+                                                        <div class="footer">
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="height: 20px; width: 10px; display: block;"></div>
+
+                                                    <div style="font-size: 13px; font-family: &quot;Eurostile&quot;, &quot;Verdana&quot;, Arial; margin-top: 20px;">
+
+                                                        <div style="font-size: 10px; font-family: &quot;Eurostile&quot;, &quot;Verdana&quot;, Arial; color: #8FC8E9; margin-top: 5px;">
+                                                            点击“下一步”，提交“我的注册”，即表示我承认已阅读、理解并同意遵守 <a href="http://www.ideal-works.com/themarvelexperience/term-of-use/">《泰国漫威体验馆使用条款》</a>
+                                                            和
+                                                            <a href="http://www.ideal-works.com/themarvelexperience/privacy-policies/">《隐私政策》。</a>.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                    <!-- section 2 -->
+                                    <div id="ember745" class="ember-view" style="opacity: 1;">
+                                        <div class="popup_content" style="width: 700px;">
+                                            <div class="form" style="padding-bottom: 0px;">
+                                                <div class="form_label" style="width: 700px;">
+                                                    <div class="title red">训练时间</div>
+                                                    <div class="title grey">| 请填写下方的神盾局 ID 卡。</div>
+                                                </div>
+                                            </div>
+                                            <div class="shield_id">
+                                                <div class="bar_code"><img src="../dist/images/shield_id/barcode.png" alt="" width="280" height="20"></div>
+
+                                                <div id="upload_photo_holder">
+                                                    <div id="upload_photo" style="display: block;" class="dz-clickable">
+                                                        <div class="unknown"></div>
+                                                        <img id="userPicture" src="#" alt="your image" />
+                                                    </div>
+                                                </div>
+                                                <input type="file" name="file" id="fileUpload" style="display: none;" accept="image/*" capture="camera">
+
+                                                <div id="player_avatar">
+                                                </div>
+
+                                                <div class="qr_image">
+                                                    <img src="../dist/images/shield_id/qrcode.png">
+                                                </div>
+
+                                                <form data-ember-action="748" name="form">
+
+                                                    <input id="FirstName" class="ember-view ember-text-field wide big" placeholder="名字" tabindex="1" type="text" name="first_name" autocomplete="off" required="">
+                                                    <br>
+                                                    <input id="LastName" class="ember-view ember-text-field wide big" placeholder="姓氏" tabindex="2" type="text" name="last_name" autocomplete="off" required="">
+
+                                                    <div class="table">
+                                                        <div class="row"><label>生日：</label></div>
+                                                        <div class="row">
+                                                            <div class="cell">
+                                                                <input id="BirthDateUser" class="ember-view ember-text-field datepicker" placeholder="MM/DD/YYYY" tabindex="2" type="text" name="BirthDate" autocomplete="off" required="" style="width: 80px;" data-toggle="datepicker">
+                                                                <!-- <input id="ember751" class="ember-view ember-text-field birthDate" placeholder="YYYY" tabindex="3" type="text" name="birth_date_year" autocomplete="off" required="">
+                  <input id="ember752" class="ember-view ember-text-field birthDate" placeholder="MM" tabindex="4" type="text" name="birth_date_month" autocomplete="off" required="">
+                  <input id="ember753" class="ember-view ember-text-field birthDate" placeholder="DD" tabindex="5" type="text" name="birth_date_day" autocomplete="off" required=""> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table">
+                                                        <div class="row"><label>身高：</label><label>眼睛的颜色：</label><label>性别：</label><label>种族：</label></div>
+                                                        <div class="row">
+                                                            <div class="cell">
+                                                                <input id="Height" class="ember-view ember-text-field" placeholder="CM" tabindex="6" type="number" name="Height" autocomplete="off" required="">
+                                                            </div>
+                                                            <div class="cell">
+                                                                <div id="ember762" class="ember-view" tabindex="8">
+                                                                    <div class="graphic_select">
+                                                                        <a href="#" class="selected" data-ember-action="767">
+                                                                            <div class="icon"><img id="selectedEyeColor" src="../static/images/eye_colors/0.jpg"></div>
+                                                                        </a>
+
+                                                                        <div class="graphic_select_items">
+
+                                                                            <a href="#" class="item" data-ember-action="1" title="Black">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/1.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="2" title="Blue">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/2.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="3" title="Brown">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/3.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="4" title="Grey">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/4.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="5" title="Green">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/5.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="6" title="Hazel">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/6.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="7" title="Red">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/7.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="8" title="Pink">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/8.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="9" title="Yellow">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/9.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="10" title="Orange">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/10.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="11" title="Purple">
+                                                                                <div class="icon"><img src="../static/images/eye_colors/11.jpg"></div>
+                                                                            </a>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="cell">
+                                                                <div id="ember763" class="ember-view" tabindex="9">
+                                                                    <div class="graphic_select">
+                                                                        <a href="#" class="selected" data-ember-action="801">
+                                                                            <div class="icon"><img id="selectedGender" src="../static/images/gender/0.jpg"></div>
+                                                                        </a>
+
+                                                                        <div class="graphic_select_items">
+
+                                                                            <a href="#" class="item" data-ember-action="1" title="Male">
+                                                                                <div class="icon"><img src="../static/images/gender/1.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="2" title="Female">
+                                                                                <div class="icon"><img src="../static/images/gender/2.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="3" title="Other">
+                                                                                <div class="icon"><img src="../static/images/gender/3.jpg"></div>
+                                                                            </a>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="cell">
+                                                                <div id="ember764" class="ember-view" tabindex="10">
+                                                                    <div class="graphic_select">
+                                                                        <a href="#" class="selected" data-ember-action="814">
+                                                                            <div class="icon"><img id="selectedSpecies" src="../static/images/species/0.jpg"></div>
+                                                                        </a>
+
+                                                                        <div class="graphic_select_items">
+
+                                                                            <a href="#" class="item" data-ember-action="1" title="Human">
+                                                                                <div class="icon"><img src="../static/images/species/1.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="2" title="Android">
+                                                                                <div class="icon"><img src="../static/images/species/2.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="3" title="Superhuman">
+                                                                                <div class="icon"><img src="../static/images/species/3.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="4" title="Animal">
+                                                                                <div class="icon"><img src="../static/images/species/4.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="5" title="Alien">
+                                                                                <div class="icon"><img src="../static/images/species/5.jpg"></div>
+                                                                            </a>
+
+                                                                            <a href="#" class="item" data-ember-action="6" title="Unknown">
+                                                                                <div class="icon"><img src="../static/images/species/6.jpg"></div>
+                                                                            </a>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table">
+                                                        <div class="row"><label>发放地点：</label><label>邮政编码：</label></div>
+                                                        <div class="row">
+                                                            <div class="cell">
+                                                                <!-- <input id="IssueLocation" class="ember-view ember-text-field wide city" placeholder="ISSUE LOCATION (CITY)" tabindex="11" type="text" name="city" autocomplete="off" required=""> -->
+                                                                <select id="IssueLocation" class="ember-view ember-text-field wide city" name="country">
+              <option value="">发放地点</option>
+              <option value="AF">Afghanistan</option>
+              <option value="AX">Åland Islands</option>
+              <option value="AL">Albania</option>
+              <option value="DZ">Algeria</option>
+              <option value="AS">American Samoa</option>
+              <option value="AD">Andorra</option>
+              <option value="AO">Angola</option>
+              <option value="AI">Anguilla</option>
+              <option value="AQ">Antarctica</option>
+              <option value="AG">Antigua and Barbuda</option>
+              <option value="AR">Argentina</option>
+              <option value="AM">Armenia</option>
+              <option value="AW">Aruba</option>
+              <option value="AU">Australia</option>
+              <option value="AT">Austria</option>
+              <option value="AZ">Azerbaijan</option>
+              <option value="BS">Bahamas</option>
+              <option value="BH">Bahrain</option>
+              <option value="BD">Bangladesh</option>
+              <option value="BB">Barbados</option>
+              <option value="BY">Belarus</option>
+              <option value="BE">Belgium</option>
+              <option value="BZ">Belize</option>
+              <option value="BJ">Benin</option>
+              <option value="BM">Bermuda</option>
+              <option value="BT">Bhutan</option>
+              <option value="BO">Bolivia</option>
+              <option value="BA">Bosnia and Herzegovina</option>
+              <option value="BW">Botswana</option>
+              <option value="BV">Bouvet Island</option>
+              <option value="BR">Brazil</option>
+              <option value="IO">British Indian Ocean Territory</option>
+              <option value="BN">Brunei Darussalam</option>
+              <option value="BG">Bulgaria</option>
+              <option value="BF">Burkina Faso</option>
+              <option value="BI">Burundi</option>
+              <option value="KH">Cambodia</option>
+              <option value="CM">Cameroon</option>
+              <option value="CA">Canada</option>
+              <option value="CV">Cape Verde</option>
+              <option value="KY">Cayman Islands</option>
+              <option value="CF">Central African Republic</option>
+              <option value="TD">Chad</option>
+              <option value="CL">Chile</option>
+              <option value="CN">China</option>
+              <option value="CX">Christmas Island</option>
+              <option value="CC">Cocos (Keeling) Islands</option>
+              <option value="CO">Colombia</option>
+              <option value="KM">Comoros</option>
+              <option value="CG">Congo</option>
+              <option value="CD">Congo, The Democratic Republic of The</option>
+              <option value="CK">Cook Islands</option>
+              <option value="CR">Costa Rica</option>
+              <option value="CI">Cote D'ivoire</option>
+              <option value="HR">Croatia</option>
+              <option value="CU">Cuba</option>
+              <option value="CY">Cyprus</option>
+              <option value="CZ">Czech Republic</option>
+              <option value="DK">Denmark</option>
+              <option value="DJ">Djibouti</option>
+              <option value="DM">Dominica</option>
+              <option value="DO">Dominican Republic</option>
+              <option value="EC">Ecuador</option>
+              <option value="EG">Egypt</option>
+              <option value="SV">El Salvador</option>
+              <option value="GQ">Equatorial Guinea</option>
+              <option value="ER">Eritrea</option>
+              <option value="EE">Estonia</option>
+              <option value="ET">Ethiopia</option>
+              <option value="FK">Falkland Islands (Malvinas)</option>
+              <option value="FO">Faroe Islands</option>
+              <option value="FJ">Fiji</option>
+              <option value="FI">Finland</option>
+              <option value="FR">France</option>
+              <option value="GF">French Guiana</option>
+              <option value="PF">French Polynesia</option>
+              <option value="TF">French Southern Territories</option>
+              <option value="GA">Gabon</option>
+              <option value="GM">Gambia</option>
+              <option value="GE">Georgia</option>
+              <option value="DE">Germany</option>
+              <option value="GH">Ghana</option>
+              <option value="GI">Gibraltar</option>
+              <option value="GR">Greece</option>
+              <option value="GL">Greenland</option>
+              <option value="GD">Grenada</option>
+              <option value="GP">Guadeloupe</option>
+              <option value="GU">Guam</option>
+              <option value="GT">Guatemala</option>
+              <option value="GG">Guernsey</option>
+              <option value="GN">Guinea</option>
+              <option value="GW">Guinea-bissau</option>
+              <option value="GY">Guyana</option>
+              <option value="HT">Haiti</option>
+              <option value="HM">Heard Island and Mcdonald Islands</option>
+              <option value="VA">Holy See (Vatican City State)</option>
+              <option value="HN">Honduras</option>
+              <option value="HK">Hong Kong</option>
+              <option value="HU">Hungary</option>
+              <option value="IS">Iceland</option>
+              <option value="IN">India</option>
+              <option value="ID">Indonesia</option>
+              <option value="IR">Iran, Islamic Republic of</option>
+              <option value="IQ">Iraq</option>
+              <option value="IE">Ireland</option>
+              <option value="IM">Isle of Man</option>
+              <option value="IL">Israel</option>
+              <option value="IT">Italy</option>
+              <option value="JM">Jamaica</option>
+              <option value="JP">Japan</option>
+              <option value="JE">Jersey</option>
+              <option value="JO">Jordan</option>
+              <option value="KZ">Kazakhstan</option>
+              <option value="KE">Kenya</option>
+              <option value="KI">Kiribati</option>
+              <option value="KP">Korea, Democratic People's Republic of</option>
+              <option value="KR">Korea, Republic of</option>
+              <option value="KW">Kuwait</option>
+              <option value="KG">Kyrgyzstan</option>
+              <option value="LA">Lao People's Democratic Republic</option>
+              <option value="LV">Latvia</option>
+              <option value="LB">Lebanon</option>
+              <option value="LS">Lesotho</option>
+              <option value="LR">Liberia</option>
+              <option value="LY">Libyan Arab Jamahiriya</option>
+              <option value="LI">Liechtenstein</option>
+              <option value="LT">Lithuania</option>
+              <option value="LU">Luxembourg</option>
+              <option value="MO">Macao</option>
+              <option value="MK">Macedonia, The Former Yugoslav Republic of</option>
+              <option value="MG">Madagascar</option>
+              <option value="MW">Malawi</option>
+              <option value="MY">Malaysia</option>
+              <option value="MV">Maldives</option>
+              <option value="ML">Mali</option>
+              <option value="MT">Malta</option>
+              <option value="MH">Marshall Islands</option>
+              <option value="MQ">Martinique</option>
+              <option value="MR">Mauritania</option>
+              <option value="MU">Mauritius</option>
+              <option value="YT">Mayotte</option>
+              <option value="MX">Mexico</option>
+              <option value="FM">Micronesia, Federated States of</option>
+              <option value="MD">Moldova, Republic of</option>
+              <option value="MC">Monaco</option>
+              <option value="MN">Mongolia</option>
+              <option value="ME">Montenegro</option>
+              <option value="MS">Montserrat</option>
+              <option value="MA">Morocco</option>
+              <option value="MZ">Mozambique</option>
+              <option value="MM">Myanmar</option>
+              <option value="NA">Namibia</option>
+              <option value="NR">Nauru</option>
+              <option value="NP">Nepal</option>
+              <option value="NL">Netherlands</option>
+              <option value="AN">Netherlands Antilles</option>
+              <option value="NC">New Caledonia</option>
+              <option value="NZ">New Zealand</option>
+              <option value="NI">Nicaragua</option>
+              <option value="NE">Niger</option>
+              <option value="NG">Nigeria</option>
+              <option value="NU">Niue</option>
+              <option value="NF">Norfolk Island</option>
+              <option value="MP">Northern Mariana Islands</option>
+              <option value="NO">Norway</option>
+              <option value="OM">Oman</option>
+              <option value="PK">Pakistan</option>
+              <option value="PW">Palau</option>
+              <option value="PS">Palestinian Territory, Occupied</option>
+              <option value="PA">Panama</option>
+              <option value="PG">Papua New Guinea</option>
+              <option value="PY">Paraguay</option>
+              <option value="PE">Peru</option>
+              <option value="PH">Philippines</option>
+              <option value="PN">Pitcairn</option>
+              <option value="PL">Poland</option>
+              <option value="PT">Portugal</option>
+              <option value="PR">Puerto Rico</option>
+              <option value="QA">Qatar</option>
+              <option value="RE">Reunion</option>
+              <option value="RO">Romania</option>
+              <option value="RU">Russian Federation</option>
+              <option value="RW">Rwanda</option>
+              <option value="SH">Saint Helena</option>
+              <option value="KN">Saint Kitts and Nevis</option>
+              <option value="LC">Saint Lucia</option>
+              <option value="PM">Saint Pierre and Miquelon</option>
+              <option value="VC">Saint Vincent and The Grenadines</option>
+              <option value="WS">Samoa</option>
+              <option value="SM">San Marino</option>
+              <option value="ST">Sao Tome and Principe</option>
+              <option value="SA">Saudi Arabia</option>
+              <option value="SN">Senegal</option>
+              <option value="RS">Serbia</option>
+              <option value="SC">Seychelles</option>
+              <option value="SL">Sierra Leone</option>
+              <option value="SG">Singapore</option>
+              <option value="SK">Slovakia</option>
+              <option value="SI">Slovenia</option>
+              <option value="SB">Solomon Islands</option>
+              <option value="SO">Somalia</option>
+              <option value="ZA">South Africa</option>
+              <option value="GS">South Georgia and The South Sandwich Islands</option>
+              <option value="ES">Spain</option>
+              <option value="LK">Sri Lanka</option>
+              <option value="SD">Sudan</option>
+              <option value="SR">Suriname</option>
+              <option value="SJ">Svalbard and Jan Mayen</option>
+              <option value="SZ">Swaziland</option>
+              <option value="SE">Sweden</option>
+              <option value="CH">Switzerland</option>
+              <option value="SY">Syrian Arab Republic</option>
+              <option value="TW">Taiwan, Province of China</option>
+              <option value="TJ">Tajikistan</option>
+              <option value="TZ">Tanzania, United Republic of</option>
+              <option value="TH">Thailand</option>
+              <option value="TL">Timor-leste</option>
+              <option value="TG">Togo</option>
+              <option value="TK">Tokelau</option>
+              <option value="TO">Tonga</option>
+              <option value="TT">Trinidad and Tobago</option>
+              <option value="TN">Tunisia</option>
+              <option value="TR">Turkey</option>
+              <option value="TM">Turkmenistan</option>
+              <option value="TC">Turks and Caicos Islands</option>
+              <option value="TV">Tuvalu</option>
+              <option value="UG">Uganda</option>
+              <option value="UA">Ukraine</option>
+              <option value="AE">United Arab Emirates</option>
+              <option value="GB">United Kingdom</option>
+              <option value="US">United States</option>
+              <option value="UM">United States Minor Outlying Islands</option>
+              <option value="UY">Uruguay</option>
+              <option value="UZ">Uzbekistan</option>
+              <option value="VU">Vanuatu</option>
+              <option value="VE">Venezuela</option>
+              <option value="VN">Viet Nam</option>
+              <option value="VG">Virgin Islands, British</option>
+              <option value="VI">Virgin Islands, U.S.</option>
+              <option value="WF">Wallis and Futuna</option>
+              <option value="EH">Western Sahara</option>
+              <option value="YE">Yemen</option>
+              <option value="ZM">Zambia</option>
+              <option value="ZW">Zimbabwe</option>
+            </select>
+                                                            </div>
+                                                            <div class="cell">
+                                                                <input id="Zipcode" class="ember-view ember-text-field zip_code" placeholder="ZIP CODE" tabindex="12" type="text" name="zip_code" autocomplete="off" required="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <!--
+<div class="form">
+<div class="header"></div>
+<div class="body">
+*If you are under the age of 13, you must have your parents permission to participate in the training system.
+</div>
+<div class="footer"></div>
+</div>
+-->
+                                        </div>
+                                    </div>
+                                    <!-- end of section 2 -->
+
+                                    <!-- section 3 -->
+                                    <div id="ember849" class="ember-view" style="opacity: 1;">
+                                        <div class="popup_content">
+                                            <div class="content" style="width: 720px;">
+                                                <div class="form" style="padding-bottom: 10px;">
+                                                    <div class="form_label" style="width: 700px;">
+                                                        <div class="title red">您最喜欢的英雄是谁？</div>
+                                                        <!-- <div class="title white">FAVORITE HERO?</div> -->
+                                                    </div>
+                                                </div>
+
+
+                                                <div id="hero_1" class="select_hero">
+                                                    <a href="#" data-ember-action="spiderman" alt="spiderman" title="Spider-Man">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/spiderman.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Spider-Man</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_2" class="select_hero">
+                                                    <a href="#" data-ember-action="ironman" alt="ironman" title="Ironman">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/ironman.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Ironman</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_3" class="select_hero">
+                                                    <a href="#" data-ember-action="thor" alt="thor" title="Thor">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/thor.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Thor</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_4" class="select_hero">
+                                                    <a href="#" data-ember-action="hulk" alt="hulk" title="Hulk">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/hulk.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Hulk</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_5" class="select_hero">
+                                                    <a href="#" data-ember-action="wolverine" alt="wolverine" title="Wolverine">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/wolverine.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Wolverine</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_6" class="select_hero">
+                                                    <a href="#" data-ember-action="captain_america" alt="Captain America" title="Captain America">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/captain_america.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Captain America</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_7" class="select_hero">
+                                                    <a href="#" data-ember-action="black_widow" alt="Black Widow" title="Black Widow">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/black_widow.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Black Widow</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_8" class="select_hero">
+                                                    <a href="#" data-ember-action="nick_fury" alt="Nick Fury" title="Nick Fury">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/nick_fury.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Nick Fury</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_9" class="select_hero">
+                                                    <a href="#" data-ember-action="black_panther" alt="Black Panther" title="Black Panther">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/black_panther.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Black Panther</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_10" class="select_hero">
+                                                    <a href="#" data-ember-action="she_hulk" alt="She-Hulk" title="She-Hulk">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/she_hulk.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">She-Hulk</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_11" class="select_hero">
+                                                    <a href="#" data-ember-action="vision" alt="Vision" title="Vision">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/vision.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Vision</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div id="hero_12" class="select_hero">
+                                                    <a href="#" data-ember-action="iron_fist" alt="Iron Fist" title="Iron Fist">
+                                                        <img style="clip-path: url('#heroIconClip');" src="../static/images/heroes/173x173/iron_fist.jpg">
+                                                        <div class="name_container" style="clip-path: url('#heroIconClip');">
+                                                            <div class="name">Iron Fist</div>
+                                                        </div>
+                                                        <div class="border"></div>
+                                                    </a>
+                                                </div>
+
+
+                                                <div class="clear"></div>
+                                                <div class="form" style="margin: 20px 0px 0px 17px; width: 680px;">
+                                                    <div class="header"></div>
+                                                    <div class="body">
+                                                        生活中，我们需要英雄。选择您的漫威体验超级英雄导师，在其指导下完成训练、取得特工资格，为您做好准备，踏上冒险征程。永远记住：英雄之魂，常在心中！
+                                                    </div>
+                                                    <div class="footer"></div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clear"></div>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- end of section 3 -->
+                                    <!-- section 4 -->
+                                    <div id="ember894" class="ember-view" style="opacity: 1;">
+                                        <div class="popup_content" style="margin-top: 70px;">
+                                            <div style="width: 800px; position: relative;">
+                                                <div style="width: 300px; position: absolute; height: 430px; left: 0px; top: 0px; z-index: 2;">
+                                                    <div class="form" style="width: 300px;">
+                                                        <div class="form_label center">
+                                                            <div class="title red">征召方式！</div>
+                                                            <!-- <div class="title white">RECRUIT!</div> -->
+                                                        </div>
+
+                                                        <div class="header">
+                                                        </div>
+
+                                                        <div class="body" style="padding-top: 20px; font-size: 21px;">
+                                                            <p style="padding: 0px 15px 0px 15px; margin: 0px;">
+                                                                您将被很快征召，<br>开始训练！
+                                                            </p>
+                                                            <p style="color: #9DD5FA; padding: 0px 15px 0px 15px; margin: 10px 0px 0px 0px;">
+                                                                培训说明即将开始
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="footer">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div style="width: 150px; height: 430px; left: 320px; z-index: 1; position: absolute;">
+                                                    <div id="bigHero" style="display: block; z-index: 0; background-position: center center; background-repeat: no-repeat; background-size: auto 400px; position: absolute; top: 0px; bottom: 0px; left: -300px; right: -300px; margin: auto;"></div>
+                                                </div>
+
+
+                                                <div class="form" style="width: 290px; right: 20px; height: 430px; z-index: 2; position: absolute;">
+                                                    <div class="form_label right">
+                                                        <div class="title red" style="font-size: 24px">你新的 ID 卡已经准备妥当</div>
+                                                        <!-- <div class="title white">ID BADGE IS READY</div> -->
+                                                        <div id="previewImage"></div>
+                                                    </div>
+
+                                                    <div id="shield_id_preview">
+                                                        <div class="shield_card">
+                                                            <img src="../dist/images/shield_card_background.png" alt="">
+                                                        </div>
+                                                        <div class="imageBorder">
+                                                            <img id="userPictureLocal" src="../dist/images/defaultpic.png" />
+                                                        </div>
+                                                        <span id="userFirstName"></span>
+                                                        <span id="userLastName"></span>
+                                                        <span id="userHeight"></span>
+                                                        <span id="userEyeColor"></span>
+                                                        <span id="userGender"></span>
+                                                        <span id="userSpecies"></span>
+                                                        <span id="userLocation"></span>
+                                                        <span id="userZip"></span>
+                                                    </div>
+
+
+                                                    <div style="margin-top: 10px; width: 430px; text-align: center; position: relative; margin-left: -110px;">
+                                                        <a onclick="printDiv();" class="nav_button left active" data-ember-action="895">打印</a>
+
+                                                        <div class="fb-share-button" id="shield_id_share" data-layout="button" data-size="small" data-mobile-iframe="true" style="display: inline-block;">
+                                                            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsmartag.io%2F&amp;src=sdkpreparse" class="nav_button right active fb-xfbml-parse-ignore" style="margin-right: 30px;">分享</a>
+                                                        </div>
+
+                                                        <a id="download_id_badge" class="nav_button right activenav_button right active" download="shield_id_badge.png">下载</a>
+                                                    </div>
+                                                    <p style="font-size: 15px; color: #e8e6e7; padding-top: 10px;" class="font-euro">
+                                                        现在，您可以下载您的全新神盾局 ID 卡，骄傲地向朋友们展示。
+                                                    </p>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- end of section 4-->
+                                    <!-- privacy policy -->
+                                    <div id="ember916" class="ember-view" style="opacity: 1;">
+                                        <div class="popup_content" style="margin-top: 60px;">
+                                            <div class="content" style="width: 600px; height: 430px; overflow : auto; ">
+                                                <div class="form">
+                                                    <div class="form_label left">
+                                                        <div class="title red">PRIVACY</div>
+                                                        <div class="title white">POLICY</div>
+                                                    </div>
+
+                                                    <div class="header">
+                                                    </div>
+
+                                                    <div class="body font-euro" style="padding: 20px; text-align: left;">
+                                                        <h3>PRIVACY POLICY</h3>
+
+<p>Our privacy policy is designed to provide transparency into our privacy practices and principles, in a format that our guests can navigate, read and understand. We are dedicated to treating your personal information with care and respect.</p>
+<p>This privacy policy describes the treatment of information provided or collected on the sites where this privacy policy is posted. It also explains the treatment of information provided or collected on applications we make available on third-party sites or platforms if disclosed to you in connection with use of the application. We follow this privacy policy in accordance with local law in the places where we operate.</p>
+
+
+<ol>
+    <li>Types of Information We Collect    </li>
+    <li>How We Collect Your Information    </li>
+    <li>Use of Your Information by The Marvel Experience Thailand    </li>
+    <li>Sharing Your Information with Other Companies    </li>
+    <li>Your Controls and Choices    </li>
+    <li>Children’s Privacy    </li>
+    <li>Data Security and Integrity    </li>
+    <li>Data Transfers, Storage and Processing Globally    </li>
+    <li>Changes to this Privacy Policy    </li>
+    <li>Comments and Questions</li>
+</ol>
+
+<h2>1. Types of Information We Collect</h2>
+<p>We collect two basic types of information - personal information and anonymous information - and we may use personal and anonymous information to create a third type of information, aggregate information. We collect the following categories of information:</p>
+<ul>
+  <li>Registration information you provide when you create an account, including your first name and surname, country of residence, gender, date of birth, email address, username and password</li>
+  <li>Transaction information you provide when you request information or purchase a product or service from us, whether on our sites or through our applications, including your postal address, telephone number and payment information</li>
+  <li>Information you provide in public forums on our sites and applications</li>
+  <li>Information sent either one-to-one or within a limited group using our message, chat, post or similar functionality, where we are permitted by law to collect this information</li>
+  <li>Information you provide to us when you use our sites and applications, our applications on third-party sites or platforms such as social networking sites, or link your profile on a third-party site or platform with your registration account</li>
+  <li>Location information when you visit our sites or use our applications, including location information either provided by a mobile device interacting with one of our sites or applications, or associated with your IP address, where we are permitted by law to process this information</li>
+  <li>Usage, viewing and technical data, including your device identifier or IP address, when you visit our sites, use our applications on third-party sites or platforms or open emails we send</li>
+</ul>
+<h3>2. How We Collect Your Information</h3>
+
+<ul>
+  <li>We collect information you provide to us when you request products, services or information from us, register with us, participate in public forums or other activities on our sites and applications, respond to customer surveys, or otherwise interact with us. Please keep in mind that when you provide information to us on a third-party site or platform (for example, via our applications), the information you provide may be separately collected by the third-party site or platform. The information we collect is covered by this privacy policy and the information the third-party site or platform collects is subject to the third-party site or platform’s privacy practices. Privacy choices you have made on the third-party site or platform will not apply to our use of the information we have collected directly through our applications.</li>
+  <li>We collect information through technology, such as cookies, Flash cookies and Web beacons, including when you visit our sites and applications or use our applications on third-party sites or platforms. Please visit Online Tracking and Advertising for further information, including Do Not Track and how to disable cookies.</li>
+  <li>We acquire information from other trusted sources to update or supplement the information you provided or we collected automatically. Local law may require that you authorize the third party to share your information with us before we can acquire it.</li>
+</ul>
+
+<h3>3. Use of Your Information by The Marvel Experience Thailand</h3>
+<p>A member of The Marvel Experience Thailand, which includes many different brands, will be the data controller for your information. The relevant data controller(s) can be determined here. Other members of The Marvel Experience Thailand may have access to your information where they perform services on behalf of the data controller(s) (as a data processor) and, unless prohibited under applicable law, for use on their own behalf (as a data controller) for the following purposes:</p>
+
+<ul>
+  <li>Provide you with the products and services you request</li>
+  <li>Communicate with you about your account or transactions with us and send you information about features on our sites and applications or changes to our policies</li>
+  <li>Consistent with local law and choices and controls that may be available to you:</li>
+  <li>Send you offers and promotions for our products and services or third-party products and services</li>
+  <li>Personalize content and experiences on our sites and applications</li>
+  <li>Provide you with advertising based on your activity on our sites and applications and on third-party sites and applications. To learn more about how we use your information for personalization and tracking, please visit Online Tracking and Advertising.</li>
+  <li>Optimize or improve our products, services and operations</li>
+  <li>Detect, investigate and prevent activities that may violate our policies or be illegal</li>
+</ul>
+
+<h3>4. Sharing Your Information with Other Companies</h3>
+<p>We will not share your personal information outside The Marvel Experience Thailand except in limited circumstances, including:</p>
+<ul>
+  <li>When you allow us to share your personal information with another company, such as:</li>
+  <li>Electing to share your personal information with carefully selected companies so that they can send you offers and promotions about their products and services</li>
+  <li>Directing us to share your personal information with third-party sites or platforms, such as social networking sites</li>
+  <li>Please note that once we share your personal information with another company, the information received by the other company becomes subject to the other company’s privacy practices.</li>
+  <li>When we cooperate with financial institutions to offer co-branded products or services to you; however, we will do so only if permitted by applicable law and, in these cases, the financial institutions are prohibited from using your personal information for purposes other than those related to the co-branded products or services</li>
+  <li>When companies perform services on our behalf, like package delivery and customer service; however, these companies are prohibited from using your personal information for purposes other than those requested by us or required by law</li>
+  <li>When we share personal information with third parties in connection with the sale of a business, to enforce our Terms of Use or rules, to ensure the safety and security of our guests and third parties, to protect our rights and property and the rights and property of our guests and third parties, to comply with legal process or in other cases if we believe in good faith that disclosure is required by law</li>
+</ul>
+
+<h3>5. Your Controls and Choices</h3>
+<p>We provide you the ability to exercise certain controls and choices regarding our collection, use and sharing of your information. In accordance with local law, your controls and choices may include:</p>
+<ul>
+  <li>You may correct, update and delete your registration account</li>
+  <li>You may change your choices for subscriptions, newsletters and alerts</li>
+  <li>You may choose whether to receive from us offers and promotions for our products and services, or products and services that we think may be of interest to you</li>
+  <li>You may choose whether we share your personal information with other companies so they can send you offers and promotions about their products and services</li>
+  <li>You may choose whether to receive targeted advertising from many ad networks, data exchanges, marketing analytics and other service providers here</li>
+  <li>You may request access to the personal information we hold about you and that we amend or delete it and we request third parties with whom we have shared the information do the same</li>
+  <li>You may exercise your controls and choices, or request access to your personal information, by contacting Customer Services, or following instructions provided in communications sent to you. Please be aware that, if you do not allow us to collect personal information from you, we may not be able to deliver certain products and services to you, and some of our services may not be able to take account of your interests and preferences. If you have questions regarding the specific personal information about you that we process or retain, please contact Customer Services.</li>
+</ul>
+
+<h3>6. Children’s Privacy</h3>
+<p>We recognize the need to provide further privacy protections with respect to personal information we may collect from children on our sites and applications. Some of the features on our sites and applications are age-gated so that they are not available for use by children, and we do not knowingly collect personal information from children in connection with those features. When we intend to collect personal information from children, we take additional steps to protect children’s privacy, including:</p>
+<ul>
+  <li>Notifying parents about our information practices with regard to children, including the types of personal information we may collect from children, the uses to which we may put that information, and whether and with whom we may share that information</li>
+  <li>In accordance with applicable law, obtaining consent from parents for the collection of personal information from their children, or for sending information about our products and services directly to their children</li>
+  <li>Limiting our collection of personal information from children to no more than is reasonably necessary to participate in an online activity</li>
+  <li>Giving parents access or the ability to request access to personal information we have collected from their children and the ability to request that the personal information be changed or deleted</li>
+</ul>
+
+<h3>7. Data Security and Integrity</h3>
+<p>The security, integrity and confidentiality of your information are extremely important to us. We have implemented technical, administrative and physical security measures that are designed to protect guest information from unauthorized access, disclosure, use and modification. From time to time, we review our security procedures to consider appropriate new technology and methods. Please be aware though that, despite our best efforts, no security measures are perfect or impenetrable.</p>
+<h3>8. Data Transfers, Storage and Processing Globally</h3>
+<p>We operate globally and may transfer your personal information to individual companies of The Marvel Experience in locations around the world for the purposes described in this privacy policy. Wherever your personal information is transferred, stored or processed by us, we will take reasonable steps to safeguard the privacy of your personal information. </p>
+<h3>9. Changes to this Privacy Policy</h3>
+<p>From time to time, we may change this privacy policy to accommodate new technologies, industry practices, regulatory requirements or for other purposes. We will provide notice to you if these changes are material and, where required by applicable law, we will obtain your consent.</p>
+<h3>10. Comments and Questions</h3>
+<p>If you have a comment or question about this privacy policy, please contact Customer Services. Our sites and applications may contain links to other sites not owned or controlled by us and we are not responsible for the privacy practices of those sites. We encourage you to be aware when you leave our sites or applications and to read the privacy policies of other sites that may collect your personal information.</p>
+<p>In your request, please specify the member of The Marvel Experience Thailand to which your request pertains. If no member is specified, we will treat your request as a general request.</p>
+<h3>Definitions</h3>
+<p>Aggregate Information. Aggregate information means information about groups or categories of guests, which does not identify and cannot reasonably be used to identify an individual guest.</p>
+<p>Anonymous Information. Anonymous information means information that does not directly or indirectly identify, and cannot reasonably be used to identify, an individual guest.</p>
+<p>Application. Application means a program or service operated by us (or on our behalf) that may be displayed on various online, mobile or other platforms and environments, including those operated by third parties, which permits us to interact directly with our guests.</p>
+<p>Children. Children means individuals who we have identified are not of legal age to consent to the collection and processing of their personal information. In the United States and Latin America, the term “children” refers to individuals under 13 years of age.</p>
+<p>Data Controller. The data controller is the subsidiary or affiliated entity of The Marvel Experience Thailand that is responsible for the personal information collected from sites and applications, as follows:</p>
+<p>Hero Experience Co., Ltd. The Marvel Experience Thailand</p>
+<p>387 Moo.8  Bangkaew, Bangplee, Samutprakarn, Thailand 10540 info@heroexperience.co.th</p>
+
+<p>Data Processor. A data processor is a person or entity that processes personal information on behalf of a data controller (or data controllers) and is permitted to perform data processing only as directed by the data controller(s).</p>
+<p>IP Address. An IP address is associated with the access point through which you enter the Internet, and is typically controlled by your Internet Service Provider (ISP), your company, or your university. We may use IP addresses to collect information regarding the frequency with which our guests visit various parts of our sites and applications, and we may combine IP addresses with personal information.</p>
+<p>Member. Member means a subsidiary or affiliated entity that is part of The Marvel Experience Thailand.</p>
+<p>Notice. Notice may be by email to you at the last email address you provided us, by posting notice of such changes on our sites and applications, or by other means, consistent with applicable law.</p>
+<p>Parents. Parents means a parent or legal guardian.</p>
+<p>Personal information. Personal information means information that identifies (whether directly or indirectly) a particular individual, such as the individual’s name, postal address, email address and telephone number. When anonymous information is directly or indirectly associated with personal information, this anonymous information also is treated as personal information.</p>
+<p>Public Forums. Our sites and applications may offer message boards, conversation pages, blogs, chat rooms, social community environments, profile pages, and other forums that do not have a restricted audience. If you provide personal information when you use any of these features, that personal information may be publicly posted and otherwise disclosed without limitation as to its use by us or by a third party. To request removal of your personal information from a public forum on one of our sites or applications, please contact Customer Services.</p>
+<p>Customer Services Contact Information <br>
+Customer Services Hero Experience Co., Ltd. The Marvel Experience Thailand <br>
+387 Moo.8  Bangkaew, Bangplee, Samutprakarn, Thailand 10540 info@heroexperience.co.th</p>
+                                                    </div>
+
+                                                    <div class="footer">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clear"></div>
+
+                                        </div>
+                                    </div>
+                                    <!-- endof privacy policy -->
+                                    <!-- start toc -->
+                                    <div id="ember936" class="ember-view" style="opacity: 1;">
+                                        <div class="popup_content" style="margin-top: 60px;">
+                                            <div class="content" style="width: 600px; height: 430px; overflow : auto; ">
+                                                <div class="form">
+                                                    <div class="form_label left">
+                                                        <div class="title red">TERMS OF</div>
+                                                        <div class="title white">USE</div>
+                                                    </div>
+
+                                                    <div class="header">
+                                                    </div>
+
+                                                    <div class="body font-euro" style="padding: 20px; text-align: left;">
+
+<h3>TERMS OF USE</h3>
+<p>Hero Experience Co. Ltd. is pleased to provide to you its sites, software, applications, content, products and services (“TMX Services”), which may be branded The Marvel Experience Thailand, Hero Experience or another brand owned or licensed by Hero Experience. These terms govern your use and our provision of the TMX Services on which these terms are posted, as well as TMX Services we make available on third-party sites and platforms if these terms are disclosed to you in connection with your use of the TMX Services. PLEASE READ THESE TERMS CAREFULLY BEFORE USING THE TMX SERVICES.</p>
+<p>ANY DISPUTE BETWEEN YOU AND US MUST BE RESOLVED BY INDIVIDUAL BINDING ARBITRATION. PLEASE READ THE ARBITRATION PROVISION IN THESE TERMS AS IT AFFECTS YOUR RIGHTS UNDER THIS CONTRACT.</p>
+<p>NOTHING IN THESE TERMS IS INTENDED TO AFFECT YOUR RIGHTS UNDER THE LAW IN YOUR USUAL PLACE OF RESIDENCE. IF THERE IS A CONFLICT BETWEEN THOSE RIGHTS AND THESE TERMS, YOUR RIGHTS UNDER APPLICABLE LOCAL LAW WILL PREVAIL. </p>
+<h3>1. Contract between You and Us</h3>
+<p>This is a contract between you and Hero Experience Co., Ltd. ADDRESS, or between you and any different service provider identified for a particular TMX Service. You must read and agree to these terms before using the TMX Services. If you do not agree, you may not use the TMX Services. These terms describe the limited basis on which the TMX Services are available and supersede prior agreements or arrangements.</p>
+<p>Supplemental terms and conditions may apply to some TMX Services, such as rules for a particular competition, service or other activity, or terms that may accompany certain content or software accessible through the TMX Services. Supplemental terms and conditions will be disclosed to you in connection with such competition, service or activity. Any supplemental terms and conditions are in addition to these terms and, in the event of a conflict, prevail over these terms.</p>
+<p>We may amend these terms. Any such amendment will be effective thirty (30) days following either our dispatch of a notice to you or our posting of the amendment on the TMX Services. If you do not agree to any change to these terms, you must discontinue using the TMX Services. Our customer service representatives are not authorized to modify any provision of these terms, either verbally or in writing.</p>
+<p>We may immediately terminate this contract with respect to you (including your access to the TMX Services) if you fail to comply with any provision of these terms.</p>
+<h3>2. The TMX Services</h3>
+<p>The TMX Services are for your personal, noncommercial use and are intended for informational and entertainment purposes only. They do not constitute legal, financial, professional, medical or healthcare advice or diagnosis and cannot be used for such purposes. To support smooth operation of the TMX Services across wide geographic areas, aspects of certain activities, such as game play, may be simulated to avoid delays.</p>
+<p>The TMX Services are our copyrighted property or the copyrighted property of our licensors or licensees and all trademarks, service marks, trade names, trade dress and other intellectual property rights in the TMX Services are owned by us or our licensors or licensees. Except as we specifically agree in writing, no element of the TMX Services may be used or exploited in any way other than as part of the TMX Services offered to you. You may own the physical media on which elements of the TMX Services are delivered to you, but we retain full and complete ownership of the TMX Services. We do not transfer title to any portion of the TMX Services to you.</p>
+<h4>Content and Software License</h4>
+<p>If a TMX Service is configured to enable the use of software, content, virtual items or other materials owned or licensed by us, we grant you a limited, non-exclusive, non-sublicensable, non-transferable license to access and use such software, content, virtual item or other material for your personal, noncommercial use only.</p>
+<p>You may not circumvent or disable any content protection system or digital rights management technology used with any TMX Service; decompile, reverse engineer, disassemble or otherwise reduce any TMX Service to a human-readable form; remove identification, copyright or other proprietary notices; or access or use any TMX Service in an unlawful or unauthorized manner or in a manner that suggests an association with our products, services or brands. You may not access or use any TMX Service in violation of United States export control and economic sanctions requirements. By acquiring services, content or software through the TMX Services, you represent and warrant that your access to and use of the services, content or software will comply with those requirements.</p>
+<h4>Disclaimers and Limitation on Liability</h4>
+<p>THE TMX SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE.” WE DISCLAIM ALL CONDITIONS, REPRESENTATIONS AND WARRANTIES NOT EXPRESSLY SET OUT IN THESE TERMS.</p>
+<p>WE SHALL NOT BE LIABLE TO YOU FOR INDIRECT, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS AND PROPERTY DAMAGE, EVEN IF WE WERE ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, NOR SHALL WE BE HELD LIABLE FOR DELAY OR FAILURE IN PERFORMANCE RESULTING FROM CAUSES BEYOND OUR REASONABLE CONTROL. IN NO EVENT SHALL OUR TOTAL LIABILITY TO YOU FOR ALL DAMAGES, LOSSES AND CAUSES OF ACTION EXCEED TEN THOUSAND THAI BAHT  (THB 10,000).</p>
+<p>THESE DISCLAIMERS AND LIMITATIONS DO NOT AFFECT YOUR RIGHTS AS A CONSUMER OR PURPORT TO LIMIT LIABILITY THAT CANNOT BE EXCLUDED UNDER THE LAW IN YOUR USUAL PLACE OF RESIDENCE.</p>
+<h4>Changes to the TMX Services</h4>
+<p>The TMX Services are constantly evolving and will change over time. If we make a material change to the TMX Services, we will provide you with reasonable notice and you will be entitled to terminate this contract.</p>
+<h4>Additional Restrictions on Use of the TMX Services</h4>
+<p>We do not allow uses of the TMX Services that are commercial or business-related, or that advertise or offer to sell products or services (whether or not for profit), or that solicit others (including solicitations for contributions or donations). You agree not to knowingly or recklessly introduce a virus or other harmful component, or otherwise tamper with, impair or damage any TMX Service or connected network, or interfere with any person or entity’s use or enjoyment of any TMX Service. You agree not to use any software or device that allows automated gameplay, expedited gameplay, or other manipulation of gameplay or game client and you agree not to cheat or otherwise modify a TMX Service or game experience to create an advantage for one user over another. Additionally, you agree not to access, monitor or copy any element of the TMX Services using a robot, spider, scraper or other automated means or manual process without our express written permission.</p>
+<h4>Third-Party Services and Content</h4>
+<p>The TMX Services may integrate, be integrated into, or be provided in connection with third- party services and content. We do not control those third-party services and content. You should read the terms of use agreements and privacy policies that apply to such third-party services and content.</p>
+<p>If you access a TMX Service using an Apple iOS, Android or Microsoft Windows-powered device, Apple Inc., Google, Inc. or Microsoft Corporation, respectively, shall be a third-party beneficiary to this contract. However, these third-party beneficiaries are not a party to this contract and are not responsible for the provision or support of the TMX Services. You agree that your access to the TMX Services using these devices also shall be subject to the usage terms set forth in the applicable third-party beneficiary’s terms of service.</p>
+<h4>Mobile Networks</h4>
+<p>When you access the TMX Services through a mobile network, your network or roaming provider’s messaging, data and other rates and fees will apply. Downloading, installing or using certain TMX Services may be prohibited or restricted by your network provider and not all TMX Services may work with your network provider or device.</p>
+<h3>3. Your Content and Account</h3>
+<h4>User Generated Content</h4>
+<p>The TMX Services may allow you to communicate, submit, upload or otherwise make available text, images, audio, video, competition entries or other content (“User Generated Content”), which may be accessible and viewable by the public. Access to these features may be subject to age restrictions. You may not submit or upload User Generated Content that is defamatory, harassing, threatening, bigoted, hateful, violent, vulgar, obscene, pornographic, or otherwise offensive or that harms or can reasonably be expected to harm any person or entity, whether or not such material is protected by law.</p>
+<p>We do not claim ownership to your User Generated Content; however, you grant us a non-exclusive, sublicensable, irrevocable and royalty-free worldwide license under all copyrights, trademarks, patents, trade secrets, privacy and publicity rights and other intellectual property rights to use, reproduce, transmit, print, publish, publicly display, exhibit, distribute, redistribute, copy, index, comment on, modify, adapt, translate, create derivative works based upon, publicly perform, make available and otherwise exploit such User Generated Content, in whole or in part, in all media formats and channels now known or hereafter devised (including in connection with the TMX Services and on third-party sites and platforms such as Facebook, YouTube and Twitter), in any number of copies and without limit as to time, manner and frequency of use, without further notice to you, with or without attribution, and without the requirement of permission from or payment to you or any other person or entity.</p>
+<p>You represent and warrant that your User Generated Content conforms to these terms and that you own or have the necessary rights and permissions, without the need for payment to any other person or entity, to use and exploit, and to authorize us to use and exploit, your User Generated Content in all manners contemplated by these terms. You agree to indemnify and hold us and our subsidiary and affiliated companies, and each of their respective employees and officers, harmless from any demands, loss, liability, claims or expenses (including attorneys’ fees), made against us by any third party arising out of or in connection with our use and exploitation of your User Generated Content. You also agree not to enforce any moral rights, ancillary rights or similar rights in or to the User Generated Content against us or our licensees, distributors, agents, representatives and other authorized users, and agree to procure the same agreement not to enforce from others who may possess such rights.</p>
+<p>To the extent that we authorize you to create, post, upload, distribute, publicly display or publicly perform User Generated Content that requires the use of our copyrighted works, we grant you a non-exclusive license to create a derivative work using our copyrighted works as required for the purpose of creating the materials, provided that such license shall be conditioned upon your assignment to us of all rights in the work you create. If such rights are not assigned to us, your license to create derivative works using our copyrighted works shall be null and void.</p>
+<p>We have the right but not the obligation to monitor, screen, post, remove, modify, store and review User Generated Content or communications sent through a TMX Service, at any time and for any reason, including to ensure that the User Generated Content or communication conforms to these terms, without prior notice to you. We are not responsible for, and do not endorse or guarantee, the opinions, views, advice or recommendations posted or sent by users.</p>
+<h4>Accounts</h4>
+<p>Some TMX Services permit or require you to create an account to participate or to secure additional benefits. You agree to provide and maintain accurate, current and complete information, including your contact information for notices and other communications from us and your payment information. You agree not to impersonate or misrepresent your affiliation with any person or entity, including using another person’s username, password or other account information, or another person’s name or likeness, or provide false details for a parent or guardian. You agree that we may take steps to verify the accuracy of information you provide, including contact information for a parent or guardian.</p>
+<p>We have adopted and implemented a policy that provides for the termination, in appropriate circumstances, of the accounts of users who are repeat infringers of copyright. In addition, we may suspend or terminate your account and your ability to use the TMX Services if you engage in, encourage or advocate for illegal conduct, or if you fail to comply with these terms or any supplemental terms.</p>
+<h4>Passwords and Security</h4>
+<p>You are responsible for taking reasonable steps to maintain the confidentiality of your username and password, and you are responsible for all activities under your account that you can reasonably control. You agree to promptly notify us of any unauthorized use of your username, password or other account information, or of any other breach of security that you become aware of involving the TMX Services.</p>
+<p>The security, integrity and confidentiality of your information are extremely important to us. We have implemented technical, administrative and physical security measures that are designed to protect your information from unauthorized access, disclosure, use and modification.</p>
+<h3>4. Paid Transactions</h3>
+<h4>Identity of Seller</h4>
+<p>Sales are made by Hero Experience or the seller identified at the time of sale, if different. If you have questions about your order, please contact the seller at the address provided and they will assist you. Some storefronts on the TMX Services are operated by third parties and, in that case, different or additional sale terms may apply, which you should read when they are presented to you.</p>
+<h4>Digital Content and Virtual Items</h4>
+<p>We may make applications, games, software or other digital content available on the TMX Services for you to license for a one-time fee. When purchasing a license to access such material from a TMX Service, charges will be disclosed to you on the TMX Service before you complete the license purchase.</p>
+<p>Your purchase of a virtual item or in-game currency is a payment for a limited, non-assignable license to access and use such content or functionality in the TMX Services. Virtual items (including characters and character names) or in-game currency purchased or available to you in the TMX Services can only be used in connection with the TMX Services where you obtained them or where they were developed by you as a result of game play. These items are not redeemable or subject to refund and cannot be traded outside of the TMX Services for money or other items for value. We may modify or discontinue virtual items or in-game currency at any time.</p>
+<h4>The Order Process</h4>
+<p>You will have the opportunity to review and confirm your order, including delivery address (if applicable), payment method and product details. We will send to you a notice when we accept your order and our acceptance will be deemed complete and for all purposes to have been effectively communicated to you at the time we send the notice. At such time, the contract for sale will be made and become binding on both you and us. The risk of loss in any goods you purchase and the responsibility to insure them passes to you when the relevant goods are delivered.</p>
+<p>We reserve the right to refuse or cancel any order prior to delivery. Some situations that may result in your order being cancelled include system or typographical errors, inaccuracies in product or pricing information or product availability, fairness among customers where supplies are limited, or problems identified by our credit or fraud departments. We also may require additional verification or information before accepting an order. We will contact you if any portion of your order is cancelled or if additional information is required to accept your order. If your order is cancelled after we have processed your payment but prior to delivery, we will refund your payment.</p>
+<h4>Payments and Billing</h4>
+<p>When you provide payment information, you represent and warrant that the information is accurate, that you are authorized to use the payment method provided, and that you will notify us of changes to the payment information. We reserve the right to utilize third party credit card updating services to obtain current expiration dates on credit cards. If you use a payment method other than a credit card, you may incur an additional payment processing fee and may not be able to automatically renew subscriptions.</p>
+<p>All license purchase fees are non-refundable. When purchasing a license to access digital content or virtual items, you agree that you are not entitled to a cancellation or cooling-off period and that the license purchase becomes final when you receive delivery of or otherwise access such content.</p>
+<h4>Right of Return/Refund</h4>
+<p>We reserve the rights of return and refund for ticket and merchandise. </p>
+<h4>Personalized Goods</h4>
+<p>Please note that the rights of cancellation and return do not apply for personalized goods. Cancellations and changes to personalized goods cannot be made once you have submitted your order and personalized items cannot be returned unless there is a manufacturing error or product defect. We reserve the right to refuse personalized orders at our discretion. Inappropriate use of our personalization service will cause your order to be cancelled and any payment refunded.</p>
+<h4>Pricing; Taxes</h4>
+<p>We may revise the pricing for products and services we offer. If you pay a periodic subscription fee for a TMX Service, we will provide you with reasonable notice of changes to the fees or billing methods in advance of their effective date and you will be able to cancel your subscription prior to such change. When you place your order, we estimate the tax and include that estimate in the total for your convenience. The actual tax amount that will be applied to your order and charged to your payment method is based on calculations on the date of shipment, regardless of when the order was placed.</p>
+<h4>International Shipping; Customs</h4>
+<p>When ordering goods for delivery to countries other than the country where the seller is located, you may have to pay import duties and taxes levied. These and any additional charges for customs clearance must be borne by you. For goods shipped internationally, please note that any manufacturer warranty may not be valid; manufacturer service options may not be available; manuals, instructions and safety warnings may not be in destination country languages; the goods and accompanying materials may not be designed in accordance with destination country standards, specifications, and labeling requirements; and the goods may not conform to destination country voltage (requiring use of an adapter or converter). You are responsible for assuring the goods can be lawfully imported to the destination country. When ordering from us, the recipient is the importer of record and must comply with all laws and regulations of the destination country.</p>
+<h3>5. Competitions</h3>
+<p>Competitions that you enter on a TMX Service may have supplemental rules and conditions, but the following general rules apply absent contrary terms in any supplemental rules or conditions for the competition.</p>
+<h4>Entries</h4>
+<p>Your competition entry is User Generated Content and subject to all provisions of these terms that govern your submission and our use of your User Generated Content. We may disqualify entries that are late, misdirected, incomplete, corrupted, lost, illegible or invalid or where appropriate parental authorization was not provided. Competition entries are limited to one per person and entries via agents or third parties or the use of multiple identities are not permitted. Use of automated entries, votes or other programs is prohibited and all such entries (or votes) will be disqualified.</p>
+<p>We reserve the right to modify, suspend, cancel or terminate a competition or extend or resume the entry period or disqualify any participant or entry at any time without giving advance notice. We will do so if it cannot be guaranteed the competition can be carried out fairly or correctly for technical, legal or other reasons, or if we suspect that any person has manipulated entries or results, provided false information, or acted unethically. If we cancel or terminate a competition, prizes may be awarded in any manner we deem fair and appropriate consistent with local laws governing the competition.</p>
+<h4>Eligibility</h4>
+<p>To enter a competition, you must be a registered user of the TMX Services and have an active account with current contact information. No purchase is necessary to enter a competition and a purchase will not improve your chances of winning. Competitions are not open to our employees (or their immediate families) or anyone else professionally associated with the competition. If you are under age 18 (or the age of majority under applicable law) and the competition is open to you, we may need your parent or guardian’s permission before we can accept your entry. We reserve the right to request proof of identity or to verify eligibility conditions and potential winning entries, and to award any prize to a winner in person. Competitions are void where prohibited or restricted by law. Potential winners who are residents in jurisdictions where competitions require an element of skill may be required to answer a mathematical test in order to be eligible to win a prize.</p>
+<h4>Prizes</h4>
+<p>No cash or alternative prizes are available, except that we (or the party providing a prize) reserve the right to substitute a similar prize of equal or greater value. Prizes cannot be transferred (except to a child or other family member) or sold by winners. Only the number of prizes stated for the competition is available to be won and all prizes will be awarded provided a sufficient number of eligible entries are received and prizes are validly claimed by the date provided in connection with the competition, after which no alternate winners will be selected or unclaimed prizes awarded. Unless otherwise disclosed in the prize description prior to entry, winners are responsible for all costs and expenses associated with claiming a prize. All taxes are solely the responsibility of each winner, although we reserve the right to withhold applicable taxes and each winner agrees to complete any required tax forms.</p>
+<p>Your acceptance of a prize constitutes agreement to participate in reasonable publicity related to the competition and grants us an unconditional right to us to use your name, town or city and state, province or country, likeness, prize information and statements by you about the competition for publicity, advertising and promotional purposes and to comply with applicable law and regulations, all without additional permission or compensation. As a condition of receiving a prize, winners (or their parents or guardians) may be required to sign and return an affidavit of eligibility, liability release and publicity release.</p>
+<h3>6. Additional Provisions</h3>
+<h4>Submissions and Unsolicited Ideas Policies</h4>
+<p>Our company policy does not allow us to accept or consider unsolicited creative ideas, suggestions or materials. In connection with anything you submit to us – whether or not solicited by us – you agree that creative ideas, suggestions or other materials you submit are not being made in confidence or trust and that no confidential or fiduciary relationship is intended or created between you and us in any way, and that you have no expectation of review, compensation or consideration of any type.</p>
+<h4>Claims of Copyright Infringement</h4>
+<p>Notifications of claimed copyright infringement and counter notices must be sent to our designated agent: <br/>
+AGENT NAME<br/>
+Hero Experience<br/>
+ADDRESS<br/>
+Email: info@heroexperience.co.th</p>
+<p>We are only able to accept notices in the languages into which these terms are made available by us.</p>
+<p>We will respond expeditiously to claims of copyright infringement committed using the TMX Services that are reported to our Designated Copyright Agent, identified above, in accordance with the Thai laws. </p>
+<h4>Choice of Forum</h4>
+<p>You agree that any action at law or in equity arising out of or relating to these terms or the TMX Services shall be filed, and that venue properly lies, only in Thailand and you consent and submit to the personal jurisdiction of such courts for the purposes of litigating such action.</p>
+<h4>Choice of Law</h4>
+<p>These terms are governed by and construed in accordance with the laws of Thailand, without giving effect to any conflict of law principles.</p>
+<h4>Binding Arbitration and Class Action Waiver</h4>
+<p>You and Hero Experience agree to arbitrate all disputes between you and Hero Experience or its affiliates, except disputes relating to the enforcement of Hero Experience or its affiliates’ intellectual property rights. “Dispute” includes any dispute, action or other controversy between you and us concerning the TMX Services or these terms, whether in contract, tort, warranty, statute or regulation, or other legal or equitable basis.</p>
+<p>In the event of a dispute, you or Hero Experience must send to the other party a notice of dispute, which is a written statement that sets forth the name, address and contact information of the party giving the notice, the facts giving rise to the dispute, and the relief requested. You must send any notice of dispute to Hero Experience, 387 Moo.8  Bangkaew, Bangplee, Samutprakarn, Thailand 10540, Attention: Legal/Arbitration Notice. We will send any notice of dispute to you at the contact information we have for you. You and Hero Experience will attempt to resolve a dispute through informal negotiation within sixty (60) days from the date the notice of dispute is sent. After sixty (60) days, you or we may commence arbitration. You may also litigate a dispute in small claims court if the dispute meets the requirements to be heard in small claims court, whether or not you negotiated informally first.</p>
+<p>If you and Hero Experience do not resolve a dispute by informal negotiation or in small claims court, the dispute shall be settled by binding arbitration before a neutral arbitrator whose decision will be final except for a limited right of appeal under Thai Arbitration Act. YOU ARE GIVING UP THE RIGHT TO LITIGATE A DISPUTE IN COURT BEFORE A JUDGE OR JURY. Arbitration will be administered by the Thai Arbitration Association (the “TAA”) The arbitrator may award damages to you individually as a court could, including declaratory or injunctive relief, but only to the extent required to satisfy your individual claim.</p>
+<p>Unless the arbitrator finds the arbitration was frivolous or brought for an improper purpose, Hero Experience will pay all filing, TAA, and arbitrator’s fees and expenses. If the arbitrator issues you an award that is greater than the value of our last written settlement offer made before an arbitrator was selected (or if we did not make a settlement offer before an arbitrator was selected), then we will pay you the amount of the award or THB10,000, whichever is greater, and pay your attorney, if any, the amount of attorneys’ fees, and reimburse any expenses (including expert witness fees and costs) that you or your attorney reasonably accrue for investigating, preparing and pursuing your claim in arbitration. We waive any right to seek an award of attorneys’ fees and expenses in connection with any non-frivolous arbitration between you and us.</p>
+<p>If you are a resident of Thailand, arbitration will take place at our headquarter office. For residents outside Thailand, arbitration shall be initiated Thailand, and you and Hero Experience agree to submit to the personal jurisdiction of the Thai courts located there, in order to compel arbitration, stay proceedings pending arbitration, or confirm, modify, vacate or enter judgment on the award entered by the arbitrator.</p>
+<p>PROCEEDINGS TO RESOLVE OR LITIGATE A DISPUTE IN ANY FORUM WILL BE CONDUCTED ON AN INDIVIDUAL BASIS. Neither you nor Hero Experience will seek to have a dispute heard as a class action, private attorney general action, or in any other proceeding in which either party acts or proposes to act in a representative capacity. No arbitration or proceeding can be combined with another without the prior written consent of all parties to the arbitration or proceeding. If the class action waiver is found to be illegal or unenforceable as to all or some parts of a dispute, those parts will be severed and proceed in a court of law, with the remaining parts proceeding in arbitration.</p>
+<h4>Severability</h4>
+<p>If any provision of these terms shall be unlawful, void or for any reason unenforceable, then that provision shall be deemed severable from these terms and shall not affect the validity and enforceability of any remaining provisions.</p>
+<h4>Survival</h4>
+<p>The provisions of these terms which by their nature should survive the termination of these terms shall survive such termination.</p>
+<h4>Waiver</h4>
+<p>No waiver of any provision of these terms by us shall be deemed a further or continuing waiver of such provision or any other provision, and our failure to assert any right or provision under these terms shall not constitute a waiver of such right or provision.</p>
+
+
+
+                                                    </div>
+
+                                                    <div class="footer">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clear"></div>
+
+                                        </div>
+                                    </div>
+                                    <!-- end of toc -->
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="border_right">
+                                <div class="image_1"></div>
+                                <div class="image_2"></div>
+                            </div>
+                            <div class="footer">
+                                <div class="image_1"></div>
+                                <div class="image_2"></div>
+                                <div class="image_3"></div>
+                            </div>
+
+                            <div class="tme_logo"></div>
+
+                            <div class="nav_buttons_container">
+                                <a href="#" id="nav_button_left" class="nav_button left" data-ember-action="597" data-bindattr-598="598">BACK</a>
+                                <a href="#" id="nav_button_right" data-ember-action="660" class="nav_button right active">NEXT</a>
+                            </div>
+
+                            <div class="footer_buttons_container">
+                                <a class="simple_button active" id="policy" data-ember-action="602">PRIVACY POLICIES</a>
+                                <a class="simple_button active" id="toc" data-ember-action="603">TERMS OF USE</a>
+                                <a href="http://ideal-works.com/themarvelexperience/" target="_blank" class="simple_button active">HOME PAGE</a>
+                            </div>
+
+
+                            <div class="debug_errors"></div>
+                        </div>
+
+                        <div class="jocasta">
+                            <div class="back" style="transform: rotate(292.528deg);"></div>
+                            <div class="front" style="transform: rotate(292.528deg);"></div>
+                        </div>
+
+
+
+                        <!--
+<p><button data-ember-action="604">OPEN MODAL</button></p>
+-->
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div id="gamescreenshot">
+            </div>
+        </div>
+    </section>
+
+    <!-- <script src="../dist/build/js/main.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <!-- <script type="text/javascript" src="../dist/build/js/simpleUpload.min.js"></script> -->
+    <script type="text/javascript" src="../dist/build/js/printThis.js"></script>
+    <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/../dist/html2canvas.min.js"></script>
+    <script src="../dist/build/js/datepicker.min.js"></script>
+    <script src="../dist/build/js/jquery.blImageCenter.js"></script>
+    <script src="../dist/build/js/app.js"></script>
+    <script>
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    const d = new Date();
+    $(".month_day").append(monthNames[d.getMonth()] + " " + d.getDate());
+
+    // $( function() {
+    //     $( ".datepicker" ).datepicker();
+    //   } );
+    $('[data-toggle="datepicker"]').datepicker();
+
+    function printDiv()
+    {
+        $("#shield_id_preview").printThis();
+    }
+
+    // var element = $("#shield_id_preview"); // global variable
+    // var getCanvas; // global variable
+
+    // $("#share_id_badge").on('click', function () {
+
+    //     html2canvas(document.querySelector("#shield_id_preview") , {width: 305, scrollX:50}).then(canvas => {
+    //     document.getElementById('previewImage').appendChild(canvas)
+    //     });
+    //      // html2canvas(element, {
+    //      // onrendered: function (canvas) {
+    //      //        $("#previewImage").append(canvas);
+    //      //        getCanvas = canvas;
+    //      //     }
+    //      // });
+    // });
+
+    // $("#download_id_badge").on('click', function () {
+    //     var imgageData = getCanvas.toDataURL("image/png");
+    //     // Now browser starts downloading it instead of just showing it
+    //     var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+    //     $("#download_id_badge").attr("download", "your_pic_name.png").attr("href", newData);
+    // });
+    // html2canvas(document.querySelector("#shield_id_preview")).then(canvas => {
+    //     document.body.appendChild(canvas)
+    // });
+
+    </script>
+
+</body>
+</html>

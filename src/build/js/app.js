@@ -260,17 +260,17 @@ $(document).ready(function(){
     if (type === "eye") {
       var theId = _.find(window.AVAILABLE_EYE_COLORS, ['id', id]);
       window.selectedEyeColor = theId.label;
-      $("#selectedEyeColor").attr("src", "/static/images/eye_colors/" + theId.id + ".jpg");
+      $("#selectedEyeColor").attr("src", "/dist/images/eye_colors/" + theId.id + ".jpg");
     }
     if (type === "gender") {
       var theId = _.find(window.AVAILABLE_GENDERS, ['id', id]);
       window.selectedGender = theId.label;
-      $("#selectedGender").attr("src", "/static/images/gender/" + theId.id + ".jpg");
+      $("#selectedGender").attr("src", "/dist/images/gender/" + theId.id + ".jpg");
     }
     if (type === "species") {
       var theId = _.find(window.AVAILABLE_SPECIES, ['id', id]);
       window.selectedSpecies = theId.label;
-      $("#selectedSpecies").attr("src", "/static/images/species/" + theId.id + ".jpg");
+      $("#selectedSpecies").attr("src", "/dist/images/species/" + theId.id + ".jpg");
     }
   }
 
@@ -288,7 +288,7 @@ $(document).ready(function(){
 
   function sendData() {
   $('#overlay').css("display", "block");
-  var url = "https://users.smartag.us/api/UserPortal";
+  var url = "https://tmxusers.smartag.us/api/UserPortal";
 
   var userDateString = jQuery("#BirthDateUser").val();
   var userBirthday = new Date(userDateString);
@@ -317,7 +317,7 @@ $(document).ready(function(){
 
         $("#ember849").css("display", "none");
         $("#ember894").css("display", "block");
-        $('#bigHero').css('background-image', 'url(/static/images/heroes/characters/' + window.selectedHero + '.png)');
+        $('#bigHero').css('background-image', 'url(/dist/images/heroes/characters/' + window.selectedHero + '.png)');
         $("#nav_button_right").removeClass("active");
         $("#level").text("1");
         $("#xp").text("100");
